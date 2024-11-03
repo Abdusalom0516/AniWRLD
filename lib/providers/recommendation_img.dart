@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:anime_world/config/colors.dart';
-import 'package:anime_world/services/custom_methods.dart';
+import 'package:anime_world/customs/custom_methods.dart';
 import 'package:flutter/material.dart';
 
 class RecommendationImg extends ChangeNotifier {
@@ -27,7 +27,7 @@ class RecommendationImg extends ChangeNotifier {
   void startSliding() {
     timer?.cancel();
     timer = Timer.periodic(
-      const Duration(milliseconds: 3500),
+      const Duration(milliseconds: 4500),
       (timer) => increment(),
     );
   }

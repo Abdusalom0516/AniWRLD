@@ -63,11 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                  height: CustomMethods.width(context, 1.5),
+                  height: CustomMethods.width(context, 1.6),
                   child: Container(
                     padding: EdgeInsets.fromLTRB(
                         CustomMethods.width(context, 50),
-                        CustomMethods.width(context, 17),
+                        // CustomMethods.width(context, 17),
+                        0,
                         CustomMethods.width(context, 50),
                         0),
                     child: Consumer<RecommendationImg>(
@@ -76,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             margin: EdgeInsets.fromLTRB(
                               CustomMethods.width(context, 23),
-                              0,
+                              CustomMethods.width(context, 50),
                               CustomMethods.width(context, 23),
                               CustomMethods.width(context, 17),
                             ),
@@ -171,12 +172,25 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding:
                     EdgeInsets.only(left: CustomMethods.width(context, 17)),
-                child: Text(
-                  "Top Rated",
-                  style: TextStyle(
-                      color: ColorsClass.milk.withOpacity(0.7),
-                      fontFamily: "PatuaOne",
-                      fontSize: CustomMethods.width(context, 16)),
+                child: Row(
+                  children: [
+                    Container(
+                      width: CustomMethods.width(context, 57),
+                      height: CustomMethods.width(context, 15),
+                      decoration: BoxDecoration(
+                          color: ColorsClass.lightBlue,
+                          borderRadius: BorderRadius.circular(
+                              CustomMethods.width(context, 15))),
+                    ),
+                    CustomWidgets.width(context, 67),
+                    Text(
+                      "Top Rated",
+                      style: TextStyle(
+                          color: ColorsClass.milk.withOpacity(0.7),
+                          fontFamily: "PatuaOne",
+                          fontSize: CustomMethods.width(context, 16)),
+                    ),
+                  ],
                 ),
               ),
               CustomWidgets.height(context, 37),
@@ -235,12 +249,25 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding:
                     EdgeInsets.only(left: CustomMethods.width(context, 17)),
-                child: Text(
-                  "Popular",
-                  style: TextStyle(
-                      color: ColorsClass.milk.withOpacity(0.7),
-                      fontFamily: "PatuaOne",
-                      fontSize: CustomMethods.width(context, 16)),
+                child: Row(
+                  children: [
+                    Container(
+                      width: CustomMethods.width(context, 57),
+                      height: CustomMethods.width(context, 15),
+                      decoration: BoxDecoration(
+                          color: ColorsClass.lightBlue,
+                          borderRadius: BorderRadius.circular(
+                              CustomMethods.width(context, 15))),
+                    ),
+                    CustomWidgets.width(context, 67),
+                    Text(
+                      "Popular",
+                      style: TextStyle(
+                          color: ColorsClass.milk.withOpacity(0.7),
+                          fontFamily: "PatuaOne",
+                          fontSize: CustomMethods.width(context, 16)),
+                    ),
+                  ],
                 ),
               ),
               CustomWidgets.height(context, 37),
@@ -252,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 1 / 1.2,
                     mainAxisSpacing: CustomMethods.width(context, 15),
-                    crossAxisSpacing: CustomMethods.width(context, 20),
+                    crossAxisSpacing: CustomMethods.width(context, 25),
                     crossAxisCount: 2,
                   ),
                   padding: EdgeInsets.symmetric(

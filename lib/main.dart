@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => TopRated()),
           ChangeNotifierProvider(create: (context) => Bests())
         ],
-        child: HomeScreen(),
+        child: const HomeScreen(),
       ),
     );
   }

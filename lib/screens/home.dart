@@ -103,18 +103,85 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    CustomMethods.width(context, 20),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          left:
+                                              CustomMethods.width(context, 40),
+                                          right:
+                                              CustomMethods.width(context, 31)),
+                                      width: double.infinity,
+                                      height: CustomMethods.width(context, 7.3),
+                                      decoration: BoxDecoration(
+                                          color:
+                                              ColorsClass.dark.withOpacity(0.7),
+                                          borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                CustomMethods.width(
+                                                    context, 20),
+                                              ),
+                                              bottomRight: Radius.circular(
+                                                  CustomMethods.width(
+                                                      context, 20)))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Demon Slayer",
+                                            style: TextStyle(
+                                                color: ColorsClass.milk,
+                                                fontFamily: "PatuaOne",
+                                                fontSize: CustomMethods.width(
+                                                    context, 17)),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "⭐ 7.1",
+                                                style: TextStyle(
+                                                    color: ColorsClass.milk,
+                                                    fontFamily: "PatuaOne",
+                                                    fontSize:
+                                                        CustomMethods.width(
+                                                            context, 23)),
+                                              ),
+                                              Text(
+                                                "2024",
+                                                style: TextStyle(
+                                                    color: ColorsClass.milk,
+                                                    fontFamily: "PatuaOne",
+                                                    fontSize:
+                                                        CustomMethods.width(
+                                                            context, 27)),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.black.withOpacity(0.43),
-                                      Colors.black.withOpacity(0.43),
-                                    ],
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        CustomMethods.width(context, 20),
+                                      ),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.43),
+                                          Colors.black.withOpacity(0.43),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                             Container(

@@ -231,14 +231,57 @@ class _HomeScreenState extends State<HomeScreen> {
                                 image: NetworkImage(
                                     provider.topRatedAnimesImgPath[index]),
                                 fit: BoxFit.fill)),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  CustomMethods.width(context, 20)),
-                              gradient: LinearGradient(colors: [
-                                Colors.black.withOpacity(0.37),
-                                Colors.black.withOpacity(0.37)
-                              ])),
+                        child: Stack(
+                          children: [
+                            Container(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                padding: EdgeInsets.all(
+                                    CustomMethods.width(context, 40)),
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                height: CustomMethods.width(context, 10.7),
+                                decoration: BoxDecoration(
+                                    color: ColorsClass.dark.withOpacity(0.83),
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(
+                                            CustomMethods.width(context, 20)),
+                                        bottomRight: Radius.circular(
+                                            CustomMethods.width(context, 20)))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Anime name",
+                                      style: TextStyle(
+                                          color: ColorsClass.milk,
+                                          fontFamily: "PatuaOne",
+                                          fontSize:
+                                              CustomMethods.width(context, 31)),
+                                    ),
+                                    Text(
+                                      "⭐ 7.3",
+                                      style: TextStyle(
+                                          color: ColorsClass.milk,
+                                          fontFamily: "PatuaOne",
+                                          fontSize:
+                                              CustomMethods.width(context, 30)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      CustomMethods.width(context, 20)),
+                                  gradient: LinearGradient(colors: [
+                                    Colors.black.withOpacity(0.37),
+                                    Colors.black.withOpacity(0.37)
+                                  ])),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -293,16 +336,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisCount: 2,
                       mainAxisSpacing: CustomMethods.width(context, 15),
                       crossAxisSpacing: CustomMethods.width(context, 25),
-                      childAspectRatio: 1 / 1.2,
+                      childAspectRatio: 1 / 1.37,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return Container(
-                          margin: index == provider.bestsImgPaths.length - 1 ||
-                                  index == provider.bestsImgPaths.length - 2
-                              ? EdgeInsets.only(
-                                  bottom: CustomMethods.width(context, 15))
-                              : const EdgeInsets.symmetric(horizontal: 0),
+                          // margin: index == provider.bestsImgPaths.length - 1 ||
+                          //         index == provider.bestsImgPaths.length - 2
+                          //     ? EdgeInsets.only(
+                          //         bottom: CustomMethods.width(context, 15))
+                          //     : const EdgeInsets.symmetric(horizontal: 0),
                           width: CustomMethods.width(context, 2.7),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -338,6 +381,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+              SliverList.list(children: [
+                CustomWidgets.height(context, 17),
+              ])
             ],
           ),
         ));

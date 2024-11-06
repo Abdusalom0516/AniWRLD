@@ -106,6 +106,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Stack(
                                 children: [
                                   Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        CustomMethods.width(context, 20),
+                                      ),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.43),
+                                          Colors.black.withOpacity(0.43),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
                                     alignment: Alignment.bottomCenter,
                                     child: Container(
                                       padding: EdgeInsets.only(
@@ -114,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           right:
                                               CustomMethods.width(context, 31)),
                                       width: double.infinity,
-                                      height: CustomMethods.width(context, 7.9),
+                                      height: CustomMethods.width(context, 8.3),
                                       decoration: BoxDecoration(
                                           color:
                                               ColorsClass.dark.withOpacity(0.7),
@@ -133,7 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             "Demon Slayer",
                                             style: TextStyle(
-                                                color: ColorsClass.milk,
+                                                color: ColorsClass.milk
+                                                    .withOpacity(0.7),
                                                 fontFamily: "PatuaOne",
                                                 fontSize: CustomMethods.width(
                                                     context, 17)),
@@ -141,24 +155,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Text(
                                             "⭐ 7.1",
                                             style: TextStyle(
-                                                color: ColorsClass.milk,
+                                                color: ColorsClass.milk
+                                                    .withOpacity(0.8),
                                                 fontFamily: "PatuaOne",
                                                 fontSize: CustomMethods.width(
                                                     context, 19)),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                        CustomMethods.width(context, 20),
-                                      ),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.black.withOpacity(0.43),
-                                          Colors.black.withOpacity(0.43),
                                         ],
                                       ),
                                     ),
@@ -283,6 +285,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Stack(
                           children: [
                             Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      CustomMethods.width(context, 20)),
+                                  gradient: LinearGradient(colors: [
+                                    Colors.black.withOpacity(0.37),
+                                    Colors.black.withOpacity(0.37)
+                                  ])),
+                            ),
+                            Container(
                               alignment: Alignment.bottomCenter,
                               child: Container(
                                 padding: EdgeInsets.all(
@@ -304,7 +315,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Text(
                                       "Anime name",
                                       style: TextStyle(
-                                          color: ColorsClass.milk,
+                                          color:
+                                              ColorsClass.milk.withOpacity(0.7),
                                           fontFamily: "PatuaOne",
                                           fontSize:
                                               CustomMethods.width(context, 31)),
@@ -312,7 +324,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Text(
                                       "⭐ 7.3",
                                       style: TextStyle(
-                                          color: ColorsClass.milk,
+                                          color:
+                                              ColorsClass.milk.withOpacity(0.7),
                                           fontFamily: "PatuaOne",
                                           fontSize:
                                               CustomMethods.width(context, 30)),
@@ -320,15 +333,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      CustomMethods.width(context, 20)),
-                                  gradient: LinearGradient(colors: [
-                                    Colors.black.withOpacity(0.37),
-                                    Colors.black.withOpacity(0.37)
-                                  ])),
                             ),
                           ],
                         ),

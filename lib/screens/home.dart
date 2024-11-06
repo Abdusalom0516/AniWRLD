@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           right:
                                               CustomMethods.width(context, 31)),
                                       width: double.infinity,
-                                      height: CustomMethods.width(context, 7.3),
+                                      height: CustomMethods.width(context, 7.9),
                                       decoration: BoxDecoration(
                                           color:
                                               ColorsClass.dark.withOpacity(0.7),
@@ -138,32 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontSize: CustomMethods.width(
                                                     context, 17)),
                                           ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "⭐ 7.1",
-                                                style: TextStyle(
-                                                    color: ColorsClass.milk,
-                                                    fontFamily: "PatuaOne",
-                                                    fontSize:
-                                                        CustomMethods.width(
-                                                            context, 23)),
-                                              ),
-                                              Text(
-                                                "2024",
-                                                style: TextStyle(
-                                                    color: ColorsClass.milk,
-                                                    fontFamily: "PatuaOne",
-                                                    fontSize:
-                                                        CustomMethods.width(
-                                                            context, 27)),
-                                              ),
-                                            ],
-                                          )
+                                          Text(
+                                            "⭐ 7.1",
+                                            style: TextStyle(
+                                                color: ColorsClass.milk,
+                                                fontFamily: "PatuaOne",
+                                                fontSize: CustomMethods.width(
+                                                    context, 19)),
+                                          ),
                                         ],
                                       ),
                                     ),

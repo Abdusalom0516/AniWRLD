@@ -6,7 +6,7 @@ class CustomWidgets {
     return SizedBox(width: CustomMethods.width(context, value),);
   }
 
-   static height(BuildContext context, double value) {
+  static height(BuildContext context, double value) {
     return SizedBox(height: CustomMethods.width(context, value),);
   }
 }

@@ -394,11 +394,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return Container(
-                          // margin: index == provider.bestsImgPaths.length - 1 ||
-                          //         index == provider.bestsImgPaths.length - 2
-                          //     ? EdgeInsets.only(
-                          //         bottom: CustomMethods.width(context, 15))
-                          //     : const EdgeInsets.symmetric(horizontal: 0),
                           width: CustomMethods.width(context, 2.7),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -414,18 +409,60 @@ class _HomeScreenState extends State<HomeScreen> {
                               fit: BoxFit.fill,
                             ),
                           ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                CustomMethods.width(context, 20),
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        CustomMethods.width(context, 20)),
+                                    gradient: LinearGradient(colors: [
+                                      Colors.black.withOpacity(0.37),
+                                      Colors.black.withOpacity(0.37)
+                                    ])),
                               ),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.black.withOpacity(0.37),
-                                  Colors.black.withOpacity(0.37),
-                                ],
+                              Container(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                      CustomMethods.width(context, 40)),
+                                  alignment: Alignment.center,
+                                  width: double.infinity,
+                                  height: CustomMethods.width(context, 8.7),
+                                  decoration: BoxDecoration(
+                                      color: ColorsClass.dark.withOpacity(0.8),
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(
+                                              CustomMethods.width(context, 20)),
+                                          bottomRight: Radius.circular(
+                                              CustomMethods.width(
+                                                  context, 20)))),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Vinland Saga",
+                                        style: TextStyle(
+                                            color: ColorsClass.milk
+                                                .withOpacity(0.7),
+                                            fontFamily: "PatuaOne",
+                                            fontSize: CustomMethods.width(
+                                                context, 27)),
+                                      ),
+                                      Text(
+                                        "⭐ 7.3",
+                                        style: TextStyle(
+                                            color: ColorsClass.milk
+                                                .withOpacity(0.7),
+                                            fontFamily: "PatuaOne",
+                                            fontSize: CustomMethods.width(
+                                                context, 27)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         );
                       },

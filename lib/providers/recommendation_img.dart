@@ -37,7 +37,7 @@ class RecommendationImg extends ChangeNotifier {
     'https://mir-s3-cdn-cf.behance.net/project_modules/1400/e66549143642733.628f6124ee6df.png',
     'https://mir-s3-cdn-cf.behance.net/project_modules/1400/0d9727143642733.628f612428c82.png',
     'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c1c8bd143642733.628f61229c4c4.png',
-    'https://ramenparados.com/wp-content/uploads/2019/07/your-name-1000x600.jpg',
+  
   ];
 
   List<Widget> listOfLinesMaker(BuildContext context) {

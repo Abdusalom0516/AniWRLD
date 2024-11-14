@@ -62,6 +62,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               // Top Part
               Expanded(
                   flex: 3,
+                  // Thumbnail of the Anime Part
                   child: Container(
                     decoration: const BoxDecoration(
                         image: DecorationImage(
@@ -84,6 +85,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ColorsClass.dark.withOpacity(0.5)
                                   ])),
                         ),
+                        // Poster Part
                         Container(
                           alignment: Alignment.bottomRight,
                           margin: EdgeInsets.only(
@@ -258,8 +260,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   width: CustomMethods.width(context, 200),
                                   color: ColorsClass.milk.withOpacity(0.8),
                                 ),
-                                // borderRadius: BorderRadius.circular(
-                                //     CustomMethods.width(context, 40)),
                               ),
                               child: GestureDetector(
                                 onTap: () {},

@@ -1,5 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:flutter/cupertino.dart';
@@ -127,8 +128,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 flex: 5,
                 child: Padding(
                   padding: EdgeInsets.only(
-                      right: CustomMethods.width(context, 27),
-                      left: CustomMethods.width(context, 50)),
+                    right: CustomMethods.width(context, 27),
+                    left: CustomMethods.width(context, 50),
+                  ),
                   child: Column(
                     children: [
                       Row(
@@ -250,6 +252,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // Trailer Part
                           Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: CustomMethods.width(context, 70),
@@ -274,7 +277,56 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                               )),
                         ],
-                      )
+                      ),
+                      CustomWidgets.height(
+                          context, CustomMethods.width(context, 25)),
+                      // Genres Part
+                      SizedBox(
+                        height: CustomMethods.width(context, 8.3),
+                        child: Consumer<Genres>(
+                          builder: (context, provider, child) =>
+                              ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: provider.listOfGenres.length,
+                            itemBuilder: (context, index) => Container(
+                              width: CustomMethods.width(context, 3.5),
+                              margin: index != provider.listOfGenres.length - 1
+                                  ? EdgeInsets.only(
+                                      right: CustomMethods.width(context, 20))
+                                  : const EdgeInsets.all(0),
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: CustomMethods.width(context, 25)),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: CustomMethods.width(context, 200),
+                                  color: ColorsClass.milk.withOpacity(0.8),
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                    CustomMethods.width(context, 40)),
+                              ),
+                              child: Text(
+                                provider.listOfGenres[index],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: ColorsClass.milk.withOpacity(0.9),
+                                    fontFamily: "PatuaOne",
+                                    fontSize: CustomMethods.width(context, 25)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      CustomWidgets.height(
+                          context, CustomMethods.width(context, 15)),
+                      // Description Part
+                      Text(
+                        "Naruto Shippuden follows Naruto Uzumaki, a determined young ninja returning to his village after intense training. Set two and a half years after Naruto, the series dives into Naruto's mission to rescue his estranged friend Sasuke and protect his village from powerful enemies, including the sinister Akatsuki organization. I love Obito even though he was villain.",
+                        style: TextStyle(
+                            color: ColorsClass.milk.withOpacity(0.9),
+                            fontFamily: "PatuaOne",
+                            fontSize: CustomMethods.width(context, 23)),
+                      ),
                     ],
                   ),
                 ),

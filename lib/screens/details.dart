@@ -59,6 +59,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       width: CustomMethods.width(context, 550)))),
           child: Column(
             children: [
+              // Top Part
               Expanded(
                   flex: 3,
                   child: Container(
@@ -67,29 +68,68 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             image: NetworkImage(
                                 "https://i.pinimg.com/474x/d2/a8/bf/d2a8bf3fc1ba2d1bc27eab933fe0ec3d.jpg"),
                             fit: BoxFit.cover)),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: ColorsClass.milk,
-                                  width: CustomMethods.width(context, 200))),
-                          gradient: LinearGradient(
-                              begin: Alignment.bottomLeft,
-                              colors: [
-                                ColorsClass.dark.withOpacity(0.37),
-                                ColorsClass.dark.withOpacity(0.5)
-                              ])),
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      color: ColorsClass.milk,
+                                      width:
+                                          CustomMethods.width(context, 200))),
+                              gradient: LinearGradient(
+                                  begin: Alignment.bottomLeft,
+                                  colors: [
+                                    ColorsClass.dark.withOpacity(0.37),
+                                    ColorsClass.dark.withOpacity(0.5)
+                                  ])),
+                        ),
+                        Container(
+                          alignment: Alignment.bottomRight,
+                          margin: EdgeInsets.only(
+                            right: CustomMethods.width(context, 27),
+                          ),
+                          child: Transform.translate(
+                            offset:
+                                Offset(0, CustomMethods.width(context, 3.9)),
+                            child: Container(
+                              height: CustomMethods.width(context, 2.2),
+                              width: CustomMethods.width(context, 3.2),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: ColorsClass.milk,
+                                      width: CustomMethods.width(context, 210)),
+                                  borderRadius: BorderRadius.circular(
+                                      CustomMethods.width(context, 27)),
+                                  image: const DecorationImage(
+                                      image: NetworkImage(
+                                          "https://i.pinimg.com/474x/d5/1c/0a/d51c0ab7b0493a2a22b2b5a83a73001a.jpg"),
+                                      fit: BoxFit.fill)),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                        CustomMethods.width(context, 27)),
+                                    gradient: LinearGradient(colors: [
+                                      ColorsClass.dark.withOpacity(0.2),
+                                      ColorsClass.dark.withOpacity(0.2)
+                                    ])),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   )),
+              // Bottom Part
               Expanded(
                 flex: 5,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: CustomMethods.width(context, 27),
-                          left: CustomMethods.width(context, 41)),
-                      child: Row(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      right: CustomMethods.width(context, 27),
+                      left: CustomMethods.width(context, 50)),
+                  child: Column(
+                    children: [
+                      Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -110,7 +150,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   context, 70)),
                                           child: Icon(
                                             Icons.circle,
-                                            color: ColorsClass.lightBlue,
+                                            color: ColorsClass.yellow,
                                             size: CustomMethods.width(
                                                 context, 35),
                                           ),
@@ -124,35 +164,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     .withOpacity(0.9),
                                                 fontFamily: "PatuaOne",
                                                 fontSize: CustomMethods.width(
-                                                    context, 15)),
+                                                    context, 17)),
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height: CustomMethods.width(context, 20),
+                                    height: CustomMethods.width(context, 30),
                                   ),
                                   // Year and Score Part
                                   Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
+                                    padding: EdgeInsets.only(
+                                        right:
                                             CustomMethods.width(context, 31)),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        // Year Part
-                                        Text(
-                                          "Y: 2011",
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              color: ColorsClass.milk
-                                                  .withOpacity(0.8),
-                                              fontFamily: "PatuaOne",
-                                              fontSize: CustomMethods.width(
-                                                  context, 17)),
-                                        ),
                                         // Score Part
                                         Container(
                                           padding: EdgeInsets.symmetric(
@@ -173,8 +202,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                           child: Row(
                                             children: [
-                                              const Icon(Icons.star,
-                                                  color: Colors.yellow),
+                                              Icon(Icons.star,
+                                                  color: ColorsClass.yellow),
                                               Text(
                                                 " 8.7",
                                                 overflow: TextOverflow.ellipsis,
@@ -184,11 +213,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     fontFamily: "PatuaOne",
                                                     fontSize:
                                                         CustomMethods.width(
-                                                            context, 19)),
+                                                            context, 21)),
                                               ),
                                             ],
                                           ),
-                                        )
+                                        ),
+                                        // Year Part
+                                        Text(
+                                          "Y: 2011",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: ColorsClass.milk
+                                                  .withOpacity(0.8),
+                                              fontFamily: "PatuaOne",
+                                              fontSize: CustomMethods.width(
+                                                  context, 21)),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -196,43 +236,47 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               ),
                             ),
                             SizedBox(
-                              width: CustomMethods.width(context, 40),
+                              width: CustomMethods.width(context, 23),
                             ),
                             // Anime Poster Part
-                            Expanded(
-                              child: Transform.translate(
-                                offset:
-                                    Offset(0, -CustomMethods.width(context, 6)),
-                                child: Container(
-                                  height: CustomMethods.width(context, 2.2),
-                                  width: CustomMethods.width(context, 3.2),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorsClass.milk,
-                                          width: CustomMethods.width(
-                                              context, 210)),
-                                      borderRadius: BorderRadius.circular(
-                                          CustomMethods.width(context, 27)),
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                              "https://i.pinimg.com/474x/d5/1c/0a/d51c0ab7b0493a2a22b2b5a83a73001a.jpg"),
-                                          fit: BoxFit.fill)),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            CustomMethods.width(context, 27)),
-                                        gradient: LinearGradient(colors: [
-                                          ColorsClass.dark.withOpacity(0.2),
-                                          ColorsClass.dark.withOpacity(0.2)
-                                        ])),
-                                  ),
-                                ),
-                              ),
-                            )
+                            Expanded(child: Container())
                           ]),
-                    ),
-                    // Bottom Part
-                  ],
+
+                      // Bottom Part
+                      CustomWidgets.height(
+                          context, CustomMethods.width(context, 25)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: CustomMethods.width(context, 70),
+                                  horizontal: CustomMethods.width(context, 13)),
+                              decoration: BoxDecoration(
+                                color: ColorsClass.darkRed,
+                                border: Border.all(
+                                  width: CustomMethods.width(context, 200),
+                                  color: ColorsClass.milk.withOpacity(0.8),
+                                ),
+                                // borderRadius: BorderRadius.circular(
+                                //     CustomMethods.width(context, 40)),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: Text(
+                                  " Trailer",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: ColorsClass.milk.withOpacity(0.9),
+                                      fontFamily: "PatuaOne",
+                                      fontSize:
+                                          CustomMethods.width(context, 19)),
+                                ),
+                              )),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

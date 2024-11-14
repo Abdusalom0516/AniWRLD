@@ -43,9 +43,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   label: "Home",
                   activeIcon: Icon(Icons.home)),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.search), label: "Search"),
+                  icon: Icon(Icons.list_alt_sharp), label: "Details"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.list_alt_sharp), label: "Seasons"),
+                  icon: Icon(CupertinoIcons.search), label: "Search"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings_outlined),
                   label: "Settings",

@@ -219,10 +219,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 bottomRight: Radius.circular(
                                                     CustomMethods.width(
                                                         context, 20)))),
+                                        // Anime Title and Score Part
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
+                                            // Title Part
                                             Text(
                                               "Vinland Saga",
                                               style: TextStyle(
@@ -232,6 +234,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   fontSize: CustomMethods.width(
                                                       context, 27)),
                                             ),
+                                            // Score Part
                                             Text(
                                               "⭐ 7.3",
                                               style: TextStyle(

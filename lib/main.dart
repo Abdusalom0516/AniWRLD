@@ -1,6 +1,7 @@
 import 'package:anime_world/providers/bests.dart';
 import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
+import 'package:anime_world/providers/search_results.dart';
 import 'package:anime_world/providers/top_rated.dart';
 import 'package:anime_world/screens/search.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => TopRated()),
           ChangeNotifierProvider(create: (context) => Bests()),
           ChangeNotifierProvider(create: (context) => Genres()),
+          ChangeNotifierProvider(create: (context) => SearchResults()),
         ],
         child: const SearchScreen(),
       ),

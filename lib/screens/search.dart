@@ -1,8 +1,10 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/search_results.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({
@@ -134,6 +136,119 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       )
                     ],
+                  ),
+                  CustomWidgets.height(context, 20),
+                  // Text Part
+                  Row(
+                    children: [
+                      Container(
+                        width: CustomMethods.width(context, 57),
+                        height: CustomMethods.width(context, 15),
+                        decoration: BoxDecoration(
+                            color: ColorsClass.darkRed,
+                            borderRadius: BorderRadius.circular(
+                                CustomMethods.width(context, 15))),
+                      ),
+                      CustomWidgets.width(context, 67),
+                      Text(
+                        "Search Results",
+                        style: TextStyle(
+                            color: ColorsClass.milk.withOpacity(0.7),
+                            fontFamily: "PatuaOne",
+                            fontSize: CustomMethods.width(context, 16)),
+                      ),
+                    ],
+                  ),
+                  CustomWidgets.height(context, 20),
+                  // Search Results Part
+                  Expanded(
+                    child: Consumer<SearchResults>(
+                        builder: (context, provider, child) => GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 1 / 1.37,
+                                      mainAxisSpacing:
+                                          CustomMethods.width(context, 30),
+                                      crossAxisSpacing:
+                                          CustomMethods.width(context, 30)),
+                              itemCount: provider.searchResultsList.length,
+                              itemBuilder: (context, index) => Container(
+                                width: CustomMethods.width(context, 2.7),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: ColorsClass.milk,
+                                    width: CustomMethods.width(context, 600),
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomMethods.width(context, 20),
+                                  ),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        provider.searchResultsList[index]),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              CustomMethods.width(context, 20)),
+                                          gradient: LinearGradient(colors: [
+                                            Colors.black.withOpacity(0.37),
+                                            Colors.black.withOpacity(0.37)
+                                          ])),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        padding: EdgeInsets.all(
+                                            CustomMethods.width(context, 40)),
+                                        alignment: Alignment.center,
+                                        width: double.infinity,
+                                        height:
+                                            CustomMethods.width(context, 8.7),
+                                        decoration: BoxDecoration(
+                                            color: ColorsClass.dark
+                                                .withOpacity(0.8),
+                                            borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(
+                                                    CustomMethods.width(
+                                                        context, 20)),
+                                                bottomRight: Radius.circular(
+                                                    CustomMethods.width(
+                                                        context, 20)))),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Vinland Saga",
+                                              style: TextStyle(
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.7),
+                                                  fontFamily: "PatuaOne",
+                                                  fontSize: CustomMethods.width(
+                                                      context, 27)),
+                                            ),
+                                            Text(
+                                              "⭐ 7.3",
+                                              style: TextStyle(
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.7),
+                                                  fontFamily: "PatuaOne",
+                                                  fontSize: CustomMethods.width(
+                                                      context, 27)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )),
                   )
                 ],
               ),

@@ -35,10 +35,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
               iconSize: CustomMethods.width(context, 14),
               showSelectedLabels: false,
               showUnselectedLabels: false,
-              selectedItemColor: ColorsClass.milk,
+              selectedItemColor: ColorsClass.lightBlue,
               unselectedItemColor: ColorsClass.milk,
               onTap: (value) {
-                  providerOuter.changeIndex(context ,value);
+                providerOuter.changeIndex(context, value);
               },
               type: BottomNavigationBarType.fixed,
               items: const [
@@ -105,7 +105,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: ColorsClass.milk,
-                                        width: CustomMethods.width(context, 210)),
+                                        width:
+                                            CustomMethods.width(context, 210)),
                                     borderRadius: BorderRadius.circular(
                                         CustomMethods.width(context, 27)),
                                     image: const DecorationImage(
@@ -149,7 +150,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     // Title Part
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          top: CustomMethods.width(context, 31)),
+                                          top:
+                                              CustomMethods.width(context, 31)),
                                       child: Row(
                                         children: [
                                           Padding(
@@ -204,9 +206,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 color: ColorsClass.milk
                                                     .withOpacity(0.8),
                                               ),
-                                              borderRadius: BorderRadius.circular(
-                                                  CustomMethods.width(
-                                                      context, 40)),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      CustomMethods.width(
+                                                          context, 40)),
                                             ),
                                             child: Row(
                                               children: [
@@ -214,7 +217,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     color: ColorsClass.yellow),
                                                 Text(
                                                   " 8.7",
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                       color: ColorsClass.milk
                                                           .withOpacity(0.9),
@@ -249,7 +253,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               // Anime Poster Part
                               Expanded(child: Container())
                             ]),
-      
+
                         // Bottom Part
                         CustomWidgets.height(
                             context, CustomMethods.width(context, 25)),
@@ -260,7 +264,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: CustomMethods.width(context, 70),
-                                    horizontal: CustomMethods.width(context, 13)),
+                                    horizontal:
+                                        CustomMethods.width(context, 13)),
                                 decoration: BoxDecoration(
                                   color: ColorsClass.darkRed,
                                   border: Border.all(
@@ -274,7 +279,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     " Trailer",
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        color: ColorsClass.milk.withOpacity(0.9),
+                                        color:
+                                            ColorsClass.milk.withOpacity(0.9),
                                         fontFamily: "PatuaOne",
                                         fontSize:
                                             CustomMethods.width(context, 19)),
@@ -294,13 +300,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               itemCount: provider.listOfGenres.length,
                               itemBuilder: (context, index) => Container(
                                 width: CustomMethods.width(context, 3.5),
-                                margin: index != provider.listOfGenres.length - 1
+                                margin: index !=
+                                        provider.listOfGenres.length - 1
                                     ? EdgeInsets.only(
                                         right: CustomMethods.width(context, 20))
                                     : const EdgeInsets.all(0),
                                 alignment: Alignment.center,
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: CustomMethods.width(context, 25)),
+                                    horizontal:
+                                        CustomMethods.width(context, 25)),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     width: CustomMethods.width(context, 200),
@@ -315,7 +323,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   style: TextStyle(
                                       color: ColorsClass.milk.withOpacity(0.9),
                                       fontFamily: "PatuaOne",
-                                      fontSize: CustomMethods.width(context, 25)),
+                                      fontSize:
+                                          CustomMethods.width(context, 25)),
                                 ),
                               ),
                             ),

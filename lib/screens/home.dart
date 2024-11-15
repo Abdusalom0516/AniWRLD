@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
               iconSize: CustomMethods.width(context, 14),
               showSelectedLabels: false,
               showUnselectedLabels: false,
-              selectedItemColor: ColorsClass.milk,
+              selectedItemColor: ColorsClass.lightBlue,
               unselectedItemColor: ColorsClass.milk,
               onTap: (value) {
                 providerOuter.changeIndex(context, value);

@@ -26,33 +26,59 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => RecommendationImg()),
-        ChangeNotifierProvider(create: (context) => TopRated()),
-        ChangeNotifierProvider(create: (context) => Bests()),
-        ChangeNotifierProvider(create: (context) => Genres()),
-        ChangeNotifierProvider(create: (context) => SearchResults()),
-        ChangeNotifierProvider(create: (context) => NavigationIndex()),
-      ],
-      builder: (context, child) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: _routes,
-      )
-    );
+        providers: [
+          ChangeNotifierProvider(create: (context) => RecommendationImg()),
+          ChangeNotifierProvider(create: (context) => TopRated()),
+          ChangeNotifierProvider(create: (context) => Bests()),
+          ChangeNotifierProvider(create: (context) => Genres()),
+          ChangeNotifierProvider(create: (context) => SearchResults()),
+          ChangeNotifierProvider(create: (context) => NavigationIndex()),
+        ],
+        builder: (context, child) => MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              routerConfig: _routes,
+            ));
   }
 }
 
-GoRouter _routes = GoRouter(initialLocation: "/", routes: [
-  GoRoute(
-    path: "/",
-    builder: (context, state) => const HomeScreen(),
-  ),
-  GoRoute(
-    path: "/details",
-    builder: (context, state) => const DetailsScreen(),
-  ),
-  GoRoute(
-    path: "/search",
-    builder: (context, state) => const SearchScreen(),
-  ),
-]);
+GoRouter _routes = GoRouter(
+  initialLocation: "/",
+  routes: [
+    GoRoute(
+      path: "/",
+      pageBuilder: (context, state) => CustomTransitionPage(
+        transitionDuration: const Duration(milliseconds: 700),
+        child: const HomeScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+          opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+          child: child,
+        ),
+      ),
+    ),
+    GoRoute(
+      path: "/details",
+      pageBuilder: (context, state) => CustomTransitionPage(
+        transitionDuration: const Duration(milliseconds: 700),
+        child: const DetailsScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+          opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+          child: child,
+        ),
+      ),
+    ),
+    GoRoute(
+      path: "/search",
+      pageBuilder: (context, state) => CustomTransitionPage(
+        transitionDuration: const Duration(milliseconds: 700),
+        child: const SearchScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+          opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+          child: child,
+        ),
+      ),
+    ),
+  ],
+);

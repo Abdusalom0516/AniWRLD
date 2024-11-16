@@ -7,11 +7,11 @@ class NavigationIndex extends ChangeNotifier {
   void changeIndex(BuildContext context, int value) {
     index = value;
     if (value == 0) {
-      context.push("/");
+      context.go("/");
     } else if (value == 1) {
-      context.push("/details");
+      context.go("/details");
     } else {
-      context.push("/search");
+      context.go("/search");
     }
 
     notifyListeners();

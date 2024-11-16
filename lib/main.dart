@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => NavigationIndex()),
         ],
         builder: (context, child) => MaterialApp.router(
+              // Turning off the click effect from BottomNavigationBar
               theme: ThemeData(
                 splashFactory: NoSplash.splashFactory,
                 splashColor: ColorsClass.dark,

@@ -1,3 +1,4 @@
+import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/providers/bests.dart';
 import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/navigation_index.dart';
@@ -35,6 +36,11 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => NavigationIndex()),
         ],
         builder: (context, child) => MaterialApp.router(
+              theme: ThemeData(
+                splashFactory: NoSplash.splashFactory,
+                splashColor: ColorsClass.dark,
+                highlightColor: ColorsClass.dark,
+              ),
               debugShowCheckedModeBanner: false,
               routerConfig: _routes,
             ));

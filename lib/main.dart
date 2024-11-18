@@ -54,7 +54,8 @@ GoRouter _routes = GoRouter(
     GoRoute(
       path: "/",
       pageBuilder: (context, state) => CustomTransitionPage(
-        transitionDuration: const Duration(milliseconds: 700),
+        key: state.pageKey,
+        transitionDuration: const Duration(milliseconds: 400),
         child: const HomeScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(
@@ -66,7 +67,8 @@ GoRouter _routes = GoRouter(
     GoRoute(
       path: "/details",
       pageBuilder: (context, state) => CustomTransitionPage(
-        transitionDuration: const Duration(milliseconds: 700),
+        key: state.pageKey,
+        transitionDuration: const Duration(milliseconds: 400),
         child: const DetailsScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(
@@ -78,7 +80,8 @@ GoRouter _routes = GoRouter(
     GoRoute(
       path: "/search",
       pageBuilder: (context, state) => CustomTransitionPage(
-        transitionDuration: const Duration(milliseconds: 700),
+        key: state.pageKey,
+        transitionDuration: const Duration(milliseconds: 300),
         child: const SearchScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(

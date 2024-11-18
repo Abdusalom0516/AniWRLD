@@ -18,6 +18,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
+  // ignore: prefer_final_fields
   FocusNode _focusNode = FocusNode();
 
   @override

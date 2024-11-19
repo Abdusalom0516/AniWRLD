@@ -1,8 +1,8 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/navigation_index.dart';
-import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +18,10 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    Provider.of<RecommendationImg>(context).startSliding();
-  }
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<DetailsData>(context).startSliding();
     return Consumer<NavigationIndex>(
       builder: (context, providerOuter, child) => Scaffold(
           backgroundColor: ColorsClass.dark,
@@ -68,64 +64,110 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Expanded(
                     flex: 3,
                     // Thumbnail of the Anime Part
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  "https://i.pinimg.com/474x/d2/a8/bf/d2a8bf3fc1ba2d1bc27eab933fe0ec3d.jpg"),
-                              fit: BoxFit.cover)),
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                        color: ColorsClass.milk,
-                                        width:
-                                            CustomMethods.width(context, 200))),
-                                gradient: LinearGradient(
-                                    begin: Alignment.bottomLeft,
-                                    colors: [
-                                      ColorsClass.dark.withOpacity(0.37),
-                                      ColorsClass.dark.withOpacity(0.5)
-                                    ])),
-                          ),
-                          // Poster Part
-                          Container(
-                            alignment: Alignment.bottomRight,
-                            margin: EdgeInsets.only(
-                              right: CustomMethods.width(context, 27),
+                    child: Consumer<DetailsData>(
+                      builder: (context, provider, child) => Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    provider.listOfDetailsImg[provider.index]),
+                                fit: BoxFit.cover)),
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: ColorsClass.milk,
+                                          width:
+                                              CustomMethods.width(context, 200))),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.bottomLeft,
+                                      colors: [
+                                        ColorsClass.dark.withOpacity(0.37),
+                                        ColorsClass.dark.withOpacity(0.5)
+                                      ])),
                             ),
-                            child: Transform.translate(
-                              offset:
-                                  Offset(0, CustomMethods.width(context, 3.9)),
-                              child: Container(
-                                height: CustomMethods.width(context, 2.2),
-                                width: CustomMethods.width(context, 3.2),
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: ColorsClass.milk,
-                                        width:
-                                            CustomMethods.width(context, 210)),
-                                    borderRadius: BorderRadius.circular(
-                                        CustomMethods.width(context, 27)),
-                                    image: const DecorationImage(
-                                        image: NetworkImage(
-                                            "https://i.pinimg.com/474x/d5/1c/0a/d51c0ab7b0493a2a22b2b5a83a73001a.jpg"),
-                                        fit: BoxFit.fill)),
+                            Container(
+                                  alignment: Alignment.centerRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      provider.increment();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: ColorsClass.milk.withOpacity(0.8),
+                                      ),
+                                      padding: EdgeInsets.all(
+                                        CustomMethods.width(context, 30),
+                                      ),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: ColorsClass.dark,
+                                        size: CustomMethods.width(context, 15),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      provider.decrement();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: ColorsClass.milk.withOpacity(0.8),
+                                      ),
+                                      padding: EdgeInsets.all(
+                                        CustomMethods.width(context, 30),
+                                      ),
+                                      child: Icon(
+                                        Icons.arrow_back_ios_rounded,
+                                        color: ColorsClass.dark,
+                                        size: CustomMethods.width(context, 15),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            // Poster Part
+                            Container(
+                              alignment: Alignment.bottomRight,
+                              margin: EdgeInsets.only(
+                                right: CustomMethods.width(context, 27),
+                              ),
+                              child: Transform.translate(
+                                offset:
+                                    Offset(0, CustomMethods.width(context, 3.9)),
                                 child: Container(
+                                  height: CustomMethods.width(context, 2.2),
+                                  width: CustomMethods.width(context, 3.2),
                                   decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: ColorsClass.milk,
+                                          width:
+                                              CustomMethods.width(context, 210)),
                                       borderRadius: BorderRadius.circular(
                                           CustomMethods.width(context, 27)),
-                                      gradient: LinearGradient(colors: [
-                                        ColorsClass.dark.withOpacity(0.2),
-                                        ColorsClass.dark.withOpacity(0.2)
-                                      ])),
+                                      image: const DecorationImage(
+                                          image: NetworkImage(
+                                              "https://i.pinimg.com/474x/d5/1c/0a/d51c0ab7b0493a2a22b2b5a83a73001a.jpg"),
+                                          fit: BoxFit.fill)),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                            CustomMethods.width(context, 27)),
+                                        gradient: LinearGradient(colors: [
+                                          ColorsClass.dark.withOpacity(0.2),
+                                          ColorsClass.dark.withOpacity(0.2)
+                                        ])),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     )),
                 // Bottom Part

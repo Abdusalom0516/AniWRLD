@@ -1,5 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/providers/bests.dart';
+import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => Genres()),
           ChangeNotifierProvider(create: (context) => SearchResults()),
           ChangeNotifierProvider(create: (context) => NavigationIndex()),
+          ChangeNotifierProvider(create: (context) => DetailsData())
         ],
         builder: (context, child) => MaterialApp.router(
               // Turning off the click effect from BottomNavigationBar

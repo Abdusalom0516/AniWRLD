@@ -22,8 +22,13 @@ class _SearchScreenState extends State<SearchScreen> {
   FocusNode _focusNode = FocusNode();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _focusNode.requestFocus();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Consumer<NavigationIndex>(
       builder: (context, providerOuter, child) => Scaffold(
         backgroundColor: ColorsClass.dark,
@@ -107,6 +112,14 @@ class _SearchScreenState extends State<SearchScreen> {
                               focusNode: _focusNode,
                               autofocus: true,
                               controller: _searchController,
+                              onSubmitted: (value) {
+                                Provider.of<SearchResults>(context,
+                                        listen: false)
+                                    .getSearchResultsByTitle(
+                                        _searchController.text);
+                                _searchController.clear();
+                                FocusScope.of(context).unfocus();
+                              },
                               style: TextStyle(
                                 decorationColor: Colors.transparent,
                                 decorationThickness: 0,
@@ -154,6 +167,10 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             child: TextButton(
                               onPressed: () {
+                                Provider.of<SearchResults>(context,
+                                        listen: false)
+                                    .getSearchResultsByTitle(
+                                        _searchController.text);
                                 _searchController.clear();
                                 FocusScope.of(context).unfocus();
                               },
@@ -168,15 +185,17 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                   ),
+                  // SliverList.list(
+                  //     children: [CustomWidgets.height(context, 20)]),
+                  // Bottom Part
                   SliverPadding(
                     padding: EdgeInsets.symmetric(
                       vertical: CustomMethods.width(context, 20),
-                      horizontal: CustomMethods.width(context, 27),
+                      horizontal: CustomMethods.width(context, 20),
                     ),
-                    sliver: SliverGrid(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final provider = Provider.of<SearchResults>(context);
+                    sliver: Consumer<SearchResults>(
+                      builder: (context, provider, child) => SliverGrid(
+                        delegate: SliverChildBuilderDelegate((context, index) {
                           return Container(
                             width: CustomMethods.width(context, 2.7),
                             decoration: BoxDecoration(
@@ -188,8 +207,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 CustomMethods.width(context, 20),
                               ),
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    provider.searchResultsList[index]),
+                                image: NetworkImage(provider
+                                        .searchResultsList[index].img ??
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s"),
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -229,24 +249,30 @@ class _SearchScreenState extends State<SearchScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Vinland Saga",
-                                          style: TextStyle(
-                                            color:
-                                                ColorsClass.milk.withOpacity(0.7),
-                                            fontFamily: "PatuaOne",
-                                            fontSize:
-                                                CustomMethods.width(context, 27),
+                                        Expanded(
+                                          child: Text(
+                                            provider.searchResultsList[index]
+                                                    .title ??
+                                                "Unknown",
+                                            style: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              color: ColorsClass.milk
+                                                  .withOpacity(0.7),
+                                              fontFamily: "PatuaOne",
+                                              fontSize: CustomMethods.width(
+                                                  context, 27),
+                                            ),
                                           ),
                                         ),
+                                        CustomWidgets.width(context, 40),
                                         Text(
-                                          "⭐ 7.3",
+                                          "⭐ ${provider.searchResultsList[index].score ?? "5"}",
                                           style: TextStyle(
-                                            color:
-                                                ColorsClass.milk.withOpacity(0.7),
+                                            color: ColorsClass.milk
+                                                .withOpacity(0.7),
                                             fontFamily: "PatuaOne",
-                                            fontSize:
-                                                CustomMethods.width(context, 27),
+                                            fontSize: CustomMethods.width(
+                                                context, 27),
                                           ),
                                         ),
                                       ],
@@ -256,16 +282,13 @@ class _SearchScreenState extends State<SearchScreen> {
                               ],
                             ),
                           );
-                        },
-                        childCount: Provider.of<SearchResults>(context)
-                            .searchResultsList
-                            .length,
-                      ),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1 / 1.37,
-                        mainAxisSpacing: CustomMethods.width(context, 30),
-                        crossAxisSpacing: CustomMethods.width(context, 30),
+                        }, childCount: provider.searchResultsList.length),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1 / 1.37,
+                          mainAxisSpacing: CustomMethods.width(context, 25),
+                          crossAxisSpacing: CustomMethods.width(context, 25),
+                        ),
                       ),
                     ),
                   ),
@@ -278,7 +301,6 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
-
 
 // Disabling the Scroll Effect
 class NoGlowScrollBehavior extends ScrollBehavior {

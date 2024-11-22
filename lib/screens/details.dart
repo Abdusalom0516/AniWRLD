@@ -337,39 +337,42 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           height: CustomMethods.width(context, 8.3),
                           child: Consumer<Genres>(
                             builder: (context, provider, child) =>
-                                ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: provider.listOfGenres.length,
-                              itemBuilder: (context, index) => Container(
-                                width: CustomMethods.width(context, 3.5),
-                                margin: index !=
-                                        provider.listOfGenres.length - 1
-                                    ? EdgeInsets.only(
-                                        right: CustomMethods.width(context, 20))
-                                    : const EdgeInsets.all(0),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        CustomMethods.width(context, 25)),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: CustomMethods.width(context, 200),
-                                    color: ColorsClass.milk.withOpacity(0.8),
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      CustomMethods.width(context, 40)),
-                                ),
-                                child: Text(
-                                  provider.listOfGenres[index],
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: ColorsClass.milk.withOpacity(0.9),
-                                      fontFamily: "PatuaOne",
-                                      fontSize:
+                                ScrollConfiguration(
+                                  behavior: NoGlowScrollBehavior(),
+                                  child: ListView.builder(
+                                                                scrollDirection: Axis.horizontal,
+                                                                itemCount: provider.listOfGenres.length,
+                                                                itemBuilder: (context, index) => Container(
+                                  width: CustomMethods.width(context, 3.5),
+                                  margin: index !=
+                                          provider.listOfGenres.length - 1
+                                      ? EdgeInsets.only(
+                                          right: CustomMethods.width(context, 20))
+                                      : const EdgeInsets.all(0),
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
                                           CustomMethods.width(context, 25)),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: CustomMethods.width(context, 200),
+                                      color: ColorsClass.milk.withOpacity(0.8),
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        CustomMethods.width(context, 40)),
+                                  ),
+                                  child: Text(
+                                    provider.listOfGenres[index],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: ColorsClass.milk.withOpacity(0.9),
+                                        fontFamily: "PatuaOne",
+                                        fontSize:
+                                            CustomMethods.width(context, 25)),
+                                  ),
+                                                                ),
+                                                              ),
                                 ),
-                              ),
-                            ),
                           ),
                         ),
                         CustomWidgets.height(
@@ -390,5 +393,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
           )),
     );
+  }
+}
+
+class NoGlowScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }

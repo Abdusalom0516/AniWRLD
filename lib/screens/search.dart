@@ -192,6 +192,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                   ),
+                  SliverToBoxAdapter(
+                    child: CustomWidgets.height(context, 29),
+                  ),
                   Consumer<SearchResults>(
                     builder: (context, provider, child) => provider.isLoading
                         ? SliverToBoxAdapter(

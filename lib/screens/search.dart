@@ -196,16 +196,26 @@ class _SearchScreenState extends State<SearchScreen> {
                     builder: (context, provider, child) => provider.isLoading
                         ? SliverToBoxAdapter(
                             child: SizedBox(
-                              height: CustomMethods.width(context, 1.2),
+                              height: CustomMethods.width(context, 1.1),
                               child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     CircularProgressIndicator(
-                                      color: ColorsClass.darkRed,
+                                      color: ColorsClass.milk.withOpacity(0.8),
                                       strokeAlign:
                                           CustomMethods.width(context, 77),
+                                    ),
+                                    CustomWidgets.height(context, 13),
+                                    Text(
+                                      "Wait for it...",
+                                      style: TextStyle(
+                                          color:
+                                              ColorsClass.milk.withOpacity(0.8),
+                                          fontFamily: "PatuaOne",
+                                          fontSize:
+                                              CustomMethods.width(context, 17)),
                                     ),
                                   ],
                                 ),

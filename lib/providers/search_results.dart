@@ -6,7 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
 class SearchResults extends ChangeNotifier {
+  bool isLoading = false;
   Future<void> getSearchResultsByTitle(String title) async {
+    isLoading = true;
+    notifyListeners();
     final request =
         await get(Uri.parse("https://api.jikan.moe/v4/anime?q=<$title>"));
 
@@ -23,7 +26,7 @@ class SearchResults extends ChangeNotifier {
               elem["title"],
               elem["score"]));
         }
-        LogService().e(searchResultsList.first.title?? "Unknown");
+        isLoading = false;
         notifyListeners();
       } catch (e) {
         LogService().e(e.toString());

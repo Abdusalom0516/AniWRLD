@@ -28,6 +28,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<NavigationIndex>(
       builder: (context, providerOuter, child) => Scaffold(
@@ -185,112 +192,140 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                   ),
-                  // SliverList.list(
-                  //     children: [CustomWidgets.height(context, 20)]),
-                  // Bottom Part
-                  SliverPadding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: CustomMethods.width(context, 20),
-                      horizontal: CustomMethods.width(context, 20),
-                    ),
-                    sliver: Consumer<SearchResults>(
-                      builder: (context, provider, child) => SliverGrid(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          return Container(
-                            width: CustomMethods.width(context, 2.7),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorsClass.milk,
-                                width: CustomMethods.width(context, 600),
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                CustomMethods.width(context, 20),
-                              ),
-                              image: DecorationImage(
-                                image: NetworkImage(provider
-                                        .searchResultsList[index].img ??
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s"),
-                                fit: BoxFit.fill,
+                  Consumer<SearchResults>(
+                    builder: (context, provider, child) => provider.isLoading
+                        ? SliverToBoxAdapter(
+                            child: SizedBox(
+                              height: CustomMethods.width(context, 1.2),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CircularProgressIndicator(
+                                      color: ColorsClass.darkRed,
+                                      strokeAlign:
+                                          CustomMethods.width(context, 77),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            child: Stack(
-                              children: [
-                                Container(
+                          )
+                        : SliverPadding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: CustomMethods.width(context, 20),
+                              horizontal: CustomMethods.width(context, 21),
+                            ),
+                            sliver: SliverGrid(
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                                return Container(
+                                  width: CustomMethods.width(context, 2.7),
                                   decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: ColorsClass.milk,
+                                      width: CustomMethods.width(context, 600),
+                                    ),
                                     borderRadius: BorderRadius.circular(
                                       CustomMethods.width(context, 20),
                                     ),
-                                    gradient: LinearGradient(colors: [
-                                      Colors.black.withOpacity(0.37),
-                                      Colors.black.withOpacity(0.37),
-                                    ]),
+                                    image: DecorationImage(
+                                      image: NetworkImage(provider
+                                              .searchResultsList[index].img ??
+                                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s"),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    padding: EdgeInsets.all(
-                                        CustomMethods.width(context, 40)),
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    height: CustomMethods.width(context, 8.7),
-                                    decoration: BoxDecoration(
-                                      color: ColorsClass.dark.withOpacity(0.8),
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(
-                                          CustomMethods.width(context, 20),
-                                        ),
-                                        bottomRight: Radius.circular(
-                                          CustomMethods.width(context, 20),
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            CustomMethods.width(context, 20),
+                                          ),
+                                          gradient: LinearGradient(colors: [
+                                            Colors.black.withOpacity(0.4),
+                                            Colors.black.withOpacity(0.4),
+                                          ]),
                                         ),
                                       ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            provider.searchResultsList[index]
-                                                    .title ??
-                                                "Unknown",
-                                            style: TextStyle(
-                                              overflow: TextOverflow.ellipsis,
-                                              color: ColorsClass.milk
-                                                  .withOpacity(0.7),
-                                              fontFamily: "PatuaOne",
-                                              fontSize: CustomMethods.width(
-                                                  context, 27),
+                                      Container(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Container(
+                                          padding: EdgeInsets.all(
+                                              CustomMethods.width(context, 40)),
+                                          alignment: Alignment.center,
+                                          width: double.infinity,
+                                          height:
+                                              CustomMethods.width(context, 8.7),
+                                          decoration: BoxDecoration(
+                                            color: ColorsClass.dark
+                                                .withOpacity(0.8),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                CustomMethods.width(
+                                                    context, 20),
+                                              ),
+                                              bottomRight: Radius.circular(
+                                                CustomMethods.width(
+                                                    context, 20),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        CustomWidgets.width(context, 40),
-                                        Text(
-                                          "⭐ ${provider.searchResultsList[index].score ?? "5"}",
-                                          style: TextStyle(
-                                            color: ColorsClass.milk
-                                                .withOpacity(0.7),
-                                            fontFamily: "PatuaOne",
-                                            fontSize: CustomMethods.width(
-                                                context, 27),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  provider
+                                                          .searchResultsList[
+                                                              index]
+                                                          .title ??
+                                                      "Unknown",
+                                                  style: TextStyle(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    color: ColorsClass.milk
+                                                        .withOpacity(0.7),
+                                                    fontFamily: "PatuaOne",
+                                                    fontSize:
+                                                        CustomMethods.width(
+                                                            context, 27),
+                                                  ),
+                                                ),
+                                              ),
+                                              CustomWidgets.width(context, 40),
+                                              Text(
+                                                "⭐ ${provider.searchResultsList[index].score ?? "5"}",
+                                                style: TextStyle(
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.7),
+                                                  fontFamily: "PatuaOne",
+                                                  fontSize: CustomMethods.width(
+                                                      context, 27),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
+                                );
+                              }, childCount: provider.searchResultsList.length),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 1 / 1.5,
+                                mainAxisSpacing:
+                                    CustomMethods.width(context, 25),
+                                crossAxisSpacing:
+                                    CustomMethods.width(context, 25),
+                              ),
                             ),
-                          );
-                        }, childCount: provider.searchResultsList.length),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1 / 1.37,
-                          mainAxisSpacing: CustomMethods.width(context, 25),
-                          crossAxisSpacing: CustomMethods.width(context, 25),
-                        ),
-                      ),
-                    ),
+                          ),
                   ),
                 ],
               ),

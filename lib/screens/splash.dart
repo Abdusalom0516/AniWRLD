@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    _initializeData(context).then((_) {
-      Timer(const Duration(milliseconds: 2400), () => context.go("/"));
+      Timer(const Duration(milliseconds: 2100), () => context.go("/"));
     });
     return Scaffold(
         backgroundColor: ColorsClass.dark,

@@ -84,7 +84,7 @@ class RecommendationImg extends ChangeNotifier {
           recomendationsData.add(AnimeInfoShort(
               elem["mal_id"],
               elem["trailer"]["images"]["maximum_image_url"],
-              elem["title"],
+              elem["title_english"],
               elem["score"]));
         }
       } catch (e) {
@@ -97,4 +97,13 @@ class RecommendationImg extends ChangeNotifier {
       LogService().e("Had a problem while getting Response from the Server");
     }
   }
+
+  // Future<bool> isImageValid(String url) async {
+  //   try {
+  //     final response = await head(Uri.parse(url));
+  //     return response.statusCode == 200;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
 }

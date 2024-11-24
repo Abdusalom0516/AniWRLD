@@ -163,19 +163,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .recomendationsData[
                                                               provider.index]
                                                           .title ??
-                                                      "Unknown",
+                                                      "...",
                                                   style: TextStyle(
                                                       color: ColorsClass.milk
                                                           .withOpacity(0.7),
                                                       fontFamily: "PatuaOne",
                                                       fontSize:
                                                           CustomMethods.width(
-                                                              context, 17)),
+                                                              context, 19)),
                                                 ),
                                               ),
                                               CustomWidgets.width(context, 15),
                                               Text(
-                                                "⭐ ${provider.recomendationsData[provider.index].score}",
+                                                "⭐ ${provider.recomendationsData[provider.index].score ?? "--"}",
                                                 style: TextStyle(
                                                     color: ColorsClass.milk
                                                         .withOpacity(0.8),

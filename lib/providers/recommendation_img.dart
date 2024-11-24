@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_methods.dart';
+import 'package:anime_world/moduls/anime_info_short.dart';
+import 'package:anime_world/services/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class RecommendationImg extends ChangeNotifier {
   int index = 0;
 
   void increment() {
     index++;
-    if (index >= recomendationsImgPaths.length) {
+    if (index >= recomendationsData.length) {
       index = 0;
     }
     notifyListeners();
@@ -18,7 +22,7 @@ class RecommendationImg extends ChangeNotifier {
   void decrement() {
     index--;
     if (index < 0) {
-      index = recomendationsImgPaths.length - 1;
+      index = recomendationsData.length - 1;
     }
     notifyListeners();
   }
@@ -32,17 +36,11 @@ class RecommendationImg extends ChangeNotifier {
     );
   }
 
-  List<String> recomendationsImgPaths = [
-    'https://mir-s3-cdn-cf.behance.net/project_modules/1400/2ca884143642733.628f61235cce0.png',
-    'https://mir-s3-cdn-cf.behance.net/project_modules/1400/e66549143642733.628f6124ee6df.png',
-    'https://mir-s3-cdn-cf.behance.net/project_modules/1400/0d9727143642733.628f612428c82.png',
-    'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c1c8bd143642733.628f61229c4c4.png',
-  
-  ];
+  List<AnimeInfoShort> recomendationsData = [];
 
   List<Widget> listOfLinesMaker(BuildContext context) {
     List<Widget> listOfLines = [];
-    for (int i = 0; i < recomendationsImgPaths.length; i++) {
+    for (int i = 0; i < recomendationsData.length; i++) {
       if (i == index) {
         listOfLines.add(Container(
           decoration: BoxDecoration(
@@ -51,7 +49,7 @@ class RecommendationImg extends ChangeNotifier {
           width: CustomMethods.width(context, 10),
           height: CustomMethods.width(context, 70),
         ));
-        if (i != recomendationsImgPaths.length) {
+        if (i != recomendationsData.length) {
           listOfLines.add(SizedBox(
             width: CustomMethods.width(context, 77),
           ));
@@ -64,7 +62,7 @@ class RecommendationImg extends ChangeNotifier {
           width: CustomMethods.width(context, 30),
           height: CustomMethods.width(context, 70),
         ));
-        if (i != recomendationsImgPaths.length) {
+        if (i != recomendationsData.length) {
           listOfLines.add(SizedBox(
             width: CustomMethods.width(context, 77),
           ));
@@ -72,5 +70,31 @@ class RecommendationImg extends ChangeNotifier {
       }
     }
     return listOfLines;
+  }
+
+  Future<void> getRecommendedAnimes() async {
+    final response =
+        await get(Uri.parse("https://api.jikan.moe/v4/seasons/now"));
+
+    final data = [];
+    if (response.statusCode == 200) {
+      data.addAll(jsonDecode(response.body)["data"]);
+      try {
+        for (var elem in data) {
+          recomendationsData.add(AnimeInfoShort(
+              elem["mal_id"],
+              elem["trailer"]["images"]["maximum_image_url"],
+              elem["title"],
+              elem["score"]));
+        }
+      } catch (e) {
+        LogService().e(e.toString());
+      }
+      notifyListeners();
+      // LogService().e(recomendationsData.length.toString());
+      // LogService().d(data.toString());
+    } else {
+      LogService().e("Had a problem while getting Response from the Server");
+    }
   }
 }

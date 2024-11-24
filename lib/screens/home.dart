@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/bests.dart';
@@ -103,10 +105,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        provider.recomendationsImgPaths[
-                                            provider.index],
+                                        provider
+                                                .recomendationsData[
+                                                    provider.index]
+                                                .img ??
+                                            "https://wallpapers.com/images/hd/dark-background-b59iy2towqy5yrgb.jpg",
                                       ),
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                   child: Stack(
@@ -150,18 +155,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                "Demon Slayer",
-                                                style: TextStyle(
-                                                    color: ColorsClass.milk
-                                                        .withOpacity(0.7),
-                                                    fontFamily: "PatuaOne",
-                                                    fontSize:
-                                                        CustomMethods.width(
-                                                            context, 17)),
+                                              Expanded(
+                                                child: Text(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  provider
+                                                          .recomendationsData[
+                                                              provider.index]
+                                                          .title ??
+                                                      "Unknown",
+                                                  style: TextStyle(
+                                                      color: ColorsClass.milk
+                                                          .withOpacity(0.7),
+                                                      fontFamily: "PatuaOne",
+                                                      fontSize:
+                                                          CustomMethods.width(
+                                                              context, 17)),
+                                                ),
                                               ),
+                                              CustomWidgets.width(context, 15),
                                               Text(
-                                                "⭐ 7.1",
+                                                "⭐ ${provider.recomendationsData[provider.index].score}",
                                                 style: TextStyle(
                                                     color: ColorsClass.milk
                                                         .withOpacity(0.8),
@@ -175,17 +189,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(
-                                    bottom: CustomMethods.width(context, 130),
-                                  ),
-                                  alignment: Alignment.bottomCenter,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children:
-                                        provider.listOfLinesMaker(context),
                                   ),
                                 ),
                                 Container(

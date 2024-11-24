@@ -9,6 +9,7 @@ import 'package:anime_world/providers/top_rated.dart';
 import 'package:anime_world/screens/details.dart';
 import 'package:anime_world/screens/home.dart';
 import 'package:anime_world/screens/search.dart';
+import 'package:anime_world/screens/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
 }
 
 GoRouter _routes = GoRouter(
-  initialLocation: "/",
+  initialLocation: "/splash",
   routes: [
     GoRoute(
       path: "/",
@@ -85,6 +86,19 @@ GoRouter _routes = GoRouter(
         key: state.pageKey,
         transitionDuration: const Duration(milliseconds: 300),
         child: const SearchScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(
+          opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
+          child: child,
+        ),
+      ),
+    ),
+    GoRoute(
+      path: "/splash",
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        transitionDuration: const Duration(milliseconds: 300),
+        child: const SplashScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(
           opacity: CurveTween(curve: Curves.easeInOut).animate(animation),

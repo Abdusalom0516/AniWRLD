@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:anime_world/moduls/search_info.dart';
+import 'package:anime_world/moduls/anime_info_short.dart';
 import 'package:anime_world/services/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
@@ -20,7 +20,7 @@ class SearchResults extends ChangeNotifier {
         LogService().d(body.toString());
 
         for (var elem in body) {
-          searchResultsList.add(SearchInfo(
+          searchResultsList.add(AnimeInfoShort(
               elem["mal_id"],
               elem["images"]["jpg"]["image_url"],
               elem["title"],
@@ -37,5 +37,5 @@ class SearchResults extends ChangeNotifier {
     }
   }
 
-  List<SearchInfo> searchResultsList = [];
+  List<AnimeInfoShort> searchResultsList = [];
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/bests.dart';

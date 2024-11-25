@@ -1,6 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
-import 'package:anime_world/providers/bests.dart';
+import 'package:anime_world/providers/popular.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/customs/custom_methods.dart';
@@ -402,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     CustomWidgets.height(context, 37),
                   ]),
-                  Consumer<Bests>(
+                  Consumer<Popular>(
                     builder: (context, provider, child) => SliverPadding(
                       padding: EdgeInsets.symmetric(
                         horizontal: CustomMethods.width(context, 27),
@@ -427,8 +427,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   CustomMethods.width(context, 20),
                                 ),
                                 image: DecorationImage(
-                                  image: NetworkImage(
-                                      provider.bestsImgPaths[index]),
+                                  image: NetworkImage(provider
+                                          .popularAnimes[index].img ??
+                                      "https://i.pinimg.com/736x/22/80/23/2280238f9ad9f2278c6ac2301a8f20de.jpg"),
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -465,17 +466,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            "Vinland Saga",
-                                            style: TextStyle(
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.7),
-                                                fontFamily: "PatuaOne",
-                                                fontSize: CustomMethods.width(
-                                                    context, 27)),
+                                          Expanded(
+                                            child: Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              provider.popularAnimes[index]
+                                                      .title ??
+                                                  "...",
+                                              style: TextStyle(
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.7),
+                                                  fontFamily: "PatuaOne",
+                                                  fontSize: CustomMethods.width(
+                                                      context, 27)),
+                                            ),
                                           ),
+                                          CustomWidgets.width(context, 51),
                                           Text(
-                                            "⭐ 7.3",
+                                            "⭐ ${provider.popularAnimes[index].score ?? "--"}",
                                             style: TextStyle(
                                                 color: ColorsClass.milk
                                                     .withOpacity(0.7),
@@ -491,7 +498,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           },
-                          childCount: provider.bestsImgPaths.length,
+                          childCount: provider.popularAnimes.length,
                         ),
                       ),
                     ),

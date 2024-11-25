@@ -1,5 +1,5 @@
 import 'package:anime_world/config/colors.dart';
-import 'package:anime_world/providers/bests.dart';
+import 'package:anime_world/providers/popular.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/navigation_index.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => RecommendationImg()),
           ChangeNotifierProvider(create: (context) => TopRated()),
-          ChangeNotifierProvider(create: (context) => Bests()),
+          ChangeNotifierProvider(create: (context) => Popular()),
           ChangeNotifierProvider(create: (context) => Genres()),
           ChangeNotifierProvider(create: (context) => SearchResults()),
           ChangeNotifierProvider(create: (context) => NavigationIndex()),

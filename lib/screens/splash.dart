@@ -4,6 +4,7 @@ import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
+import 'package:anime_world/providers/top_rated.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ class SplashScreen extends StatelessWidget {
 
    Future<void> _initializeData(BuildContext context) async {
     await Provider.of<RecommendationImg>(context, listen: false).getRecommendedAnimes();
+    // ignore: use_build_context_synchronously
+    await Provider.of<TopRated>(context, listen: false).getTopRatedAnimes();
   }
 
   @override

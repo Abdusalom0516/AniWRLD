@@ -1,13 +1,36 @@
+import 'dart:convert';
+
+import 'package:anime_world/moduls/anime_info_short.dart';
+import 'package:anime_world/services/logger.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class TopRated extends ChangeNotifier {
-  List<String> topRatedAnimesImgPath = [
-    'https://i.pinimg.com/474x/b9/ef/0a/b9ef0ae3b860fd287e907491fddd560c.jpg',
-    'https://i.pinimg.com/474x/37/51/09/3751091d364d4e9947d2a2478dc1da38.jpg',
-    'https://i.pinimg.com/474x/42/27/3a/42273afb1bd089efd27b37a5a8293522.jpg',
-    'https://i.pinimg.com/474x/82/90/06/829006f7d871f3039e4ded4e902d19a0.jpg',
-    'https://i.pinimg.com/474x/47/2b/93/472b93204135872917c38f14b6253549.jpg',
-    'https://i.pinimg.com/474x/ff/6a/5b/ff6a5b603c298555fd08373f3ac7e94e.jpg',
-    'https://i.pinimg.com/474x/6f/62/52/6f6252b40995b5b4bc09e275aa86426d.jpg'
-  ];
+  List<AnimeInfoShort> topRatedAnimes = [];
+
+  Future<void> getTopRatedAnimes() async {
+    final response =
+        await get(Uri.parse("https://api.jikan.moe/v4/top/anime"));
+
+    final data = [];
+    if (response.statusCode == 200) {
+      data.addAll(jsonDecode(response.body)["data"]);
+      try {
+        for (var elem in data) {
+          topRatedAnimes.add(AnimeInfoShort(
+              elem["mal_id"],
+              elem["images"]["jpg"]["large_image_url"],
+              elem["title_english"],
+              elem["score"]));
+        }
+      } catch (e) {
+        LogService().e(e.toString());
+      }
+      notifyListeners();
+      // LogService().e(recomendationsData.length.toString());
+      // LogService().d(data.toString());
+    } else {
+      LogService().e("Had a problem while getting Response from the Server");
+    }
+  }
 }

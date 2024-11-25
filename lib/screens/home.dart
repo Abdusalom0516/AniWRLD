@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context, provider, child) => SizedBox(
                         height: CustomMethods.width(context, 1.9),
                         child: ListView.builder(
-                          itemCount: provider.topRatedAnimesImgPath.length,
+                          itemCount: provider.topRatedAnimes.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) => Container(
                             margin: index == 0
@@ -292,8 +292,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(
                                     CustomMethods.width(context, 20)),
                                 image: DecorationImage(
-                                    image: NetworkImage(
-                                        provider.topRatedAnimesImgPath[index]),
+                                    image: NetworkImage(provider
+                                            .topRatedAnimes[index].img ??
+                                        "https://i.pinimg.com/736x/f6/76/83/f67683016eb44f1fa4ef785fa0f71039.jpg"),
                                     fit: BoxFit.fill)),
                             child: Stack(
                               children: [
@@ -328,23 +329,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Anime name",
-                                          style: TextStyle(
-                                              color: ColorsClass.milk
-                                                  .withOpacity(0.7),
-                                              fontFamily: "PatuaOne",
-                                              fontSize: CustomMethods.width(
-                                                  context, 31)),
+                                        Expanded(
+                                          child: Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            provider.topRatedAnimes[index]
+                                                    .title ??
+                                                "...",
+                                            style: TextStyle(
+                                                color: ColorsClass.milk
+                                                    .withOpacity(0.7),
+                                                fontFamily: "PatuaOne",
+                                                fontSize: CustomMethods.width(
+                                                    context, 31)),
+                                          ),
                                         ),
+                                        CustomWidgets.width(context, 63),
                                         Text(
-                                          "⭐ 7.3",
+                                          "⭐ ${provider.topRatedAnimes[index].score ?? "--"}",
                                           style: TextStyle(
                                               color: ColorsClass.milk
                                                   .withOpacity(0.7),
                                               fontFamily: "PatuaOne",
                                               fontSize: CustomMethods.width(
-                                                  context, 30)),
+                                                  context, 33)),
                                         ),
                                       ],
                                     ),

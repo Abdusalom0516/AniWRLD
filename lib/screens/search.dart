@@ -235,7 +235,8 @@ class _SearchScreenState extends State<SearchScreen> {
                             sliver: provider.foundNothing
                                 ? SliverToBoxAdapter(
                                     child: SizedBox(
-                                      height: CustomMethods.width(context, 0.9),
+                                      height:
+                                          CustomMethods.width(context, 1.05),
                                       child: Center(
                                         child: Column(
                                           mainAxisAlignment:
@@ -247,17 +248,17 @@ class _SearchScreenState extends State<SearchScreen> {
                                               image:
                                                   AssetImage(ImgPaths.notFound),
                                               height: CustomMethods.width(
-                                                  context, 1.43),
+                                                  context, 2.3),
                                             ),
-                                            CustomWidgets.height(context, 13),
+                                            CustomWidgets.height(context, 17),
                                             Text(
-                                              "Nothing Found.",
+                                              "Try again.",
                                               style: TextStyle(
                                                   color: ColorsClass.milk
                                                       .withOpacity(0.8),
                                                   fontFamily: "PatuaOne",
                                                   fontSize: CustomMethods.width(
-                                                      context, 17)),
+                                                      context, 15)),
                                             ),
                                           ],
                                         ),

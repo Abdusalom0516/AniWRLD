@@ -7,6 +7,8 @@ import 'package:http/http.dart';
 
 class SearchResults extends ChangeNotifier {
   bool isLoading = false;
+  bool foundNothing = false;
+
   Future<void> getSearchResultsByTitle(String title) async {
     isLoading = true;
     notifyListeners();
@@ -27,6 +29,11 @@ class SearchResults extends ChangeNotifier {
               elem["score"]));
         }
         isLoading = false;
+        if (searchResultsList.isEmpty) {
+          foundNothing = true;
+        }else{
+          foundNothing = false;
+        }
         notifyListeners();
       } catch (e) {
         LogService().e(e.toString());

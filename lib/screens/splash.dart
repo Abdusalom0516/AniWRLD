@@ -13,17 +13,18 @@ import 'package:provider/provider.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-   Future<void> _initializeData(BuildContext context) async {
-    await Provider.of<RecommendationImg>(context, listen: false).getRecommendedAnimes();
-    // ignore: use_build_context_synchronously
-    await Provider.of<TopRated>(context, listen: false).getTopRatedAnimes();
-    // ignore: use_build_context_synchronously
-    await Provider.of<Popular>(context, listen: false).getPopularAnimes();
+  Future<void> _initializeData(BuildContext context) async {
+    Future.wait([
+      Provider.of<RecommendationImg>(context, listen: false)
+        .getRecommendedAnimes(),
+      Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
+      Provider.of<Popular>(context, listen: false).getPopularAnimes()
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
-   _initializeData(context).then((_) {
+    _initializeData(context).then((_) {
       Timer(const Duration(milliseconds: 2100), () => context.go("/"));
     });
     return Scaffold(

@@ -1,5 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/popular.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     expandedHeight: CustomMethods.width(context, 1.6),
                     flexibleSpace: FlexibleSpaceBar(
                       background: SizedBox(
-                        height: CustomMethods.width(context, 1.6),
+                        // height: CustomMethods.width(context, 1.2),
                         child: Container(
                           color: ColorsClass.dark,
                           padding: EdgeInsets.fromLTRB(
@@ -102,130 +103,152 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Consumer<RecommendationImg>(
                             builder: (context, provider, child) => Stack(
                               children: [
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                    CustomMethods.width(context, 23),
-                                    CustomMethods.width(context, 50),
-                                    CustomMethods.width(context, 23),
-                                    CustomMethods.width(context, 17),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: ColorsClass.milk,
-                                      width: CustomMethods.width(context, 600),
+                                GestureDetector(
+                                  onTap: () {
+                                    // Trying to get the Detailed data
+                                    print("Fuck youuuu");
+                                    Provider.of<DetailsData>(context,
+                                            listen: false)
+                                        .getDetailedInfo(
+                                            provider
+                                                .recomendationsData[
+                                                    provider.index]
+                                                .id!,
+                                            context);
+                                    Provider.of<NavigationIndex>(context,
+                                            listen: false)
+                                        .changeIndex(context, 1);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.fromLTRB(
+                                      CustomMethods.width(context, 23),
+                                      CustomMethods.width(context, 50),
+                                      CustomMethods.width(context, 23),
+                                      CustomMethods.width(context, 17),
                                     ),
-                                    borderRadius: BorderRadius.circular(
-                                      CustomMethods.width(context, 20),
-                                    ),
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            CustomMethods.width(context, 20)),
-                                        child: CachedNetworkImage(
-                                          imageUrl: provider
-                                                  .recomendationsData[
-                                                      provider.index]
-                                                  .img ??
-                                              "https://wallpapers.com/images/hd/dark-background-b59iy2towqy5yrgb.jpg",
-                                          fit: BoxFit.fill,
-                                          width: double.infinity,
-                                          height: double.infinity,
-                                          placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator(
-                                              color: ColorsClass.milk,
-                                            ),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(
-                                            Icons.image_not_supported_outlined,
-                                            color: ColorsClass.lightBlue,
-                                            size:
-                                                CustomMethods.width(context, 7),
-                                          ),
-                                        ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: ColorsClass.milk,
+                                        width:
+                                            CustomMethods.width(context, 600),
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                        CustomMethods.width(context, 20),
+                                      ),
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        ClipRRect(
                                           borderRadius: BorderRadius.circular(
-                                            CustomMethods.width(context, 20),
-                                          ),
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Colors.black.withOpacity(0.43),
-                                              Colors.black.withOpacity(0.43),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                            left: CustomMethods.width(
-                                                context, 40),
-                                            right: CustomMethods.width(
-                                                context, 31),
-                                          ),
-                                          width: double.infinity,
-                                          height:
-                                              CustomMethods.width(context, 8.3),
-                                          decoration: BoxDecoration(
-                                            color: ColorsClass.dark
-                                                .withOpacity(0.7),
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(
-                                                CustomMethods.width(
-                                                    context, 20),
-                                              ),
-                                              bottomRight: Radius.circular(
-                                                CustomMethods.width(
-                                                    context, 20),
+                                              CustomMethods.width(context, 20)),
+                                          child: CachedNetworkImage(
+                                            imageUrl: provider
+                                                    .recomendationsData[
+                                                        provider.index]
+                                                    .img ??
+                                                "https://wallpapers.com/images/hd/dark-background-b59iy2towqy5yrgb.jpg",
+                                            fit: BoxFit.fill,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            placeholder: (context, url) =>
+                                                Center(
+                                              child: CircularProgressIndicator(
+                                                color: ColorsClass.milk,
                                               ),
                                             ),
+                                            errorWidget:
+                                                (context, url, error) => Icon(
+                                              Icons
+                                                  .image_not_supported_outlined,
+                                              color: ColorsClass.lightBlue,
+                                              size: CustomMethods.width(
+                                                  context, 7),
+                                            ),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  provider
-                                                          .recomendationsData[
-                                                              provider.index]
-                                                          .title ??
-                                                      "...",
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              CustomMethods.width(context, 20),
+                                            ),
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Colors.black.withOpacity(0.43),
+                                                Colors.black.withOpacity(0.43),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Container(
+                                            padding: EdgeInsets.only(
+                                              left: CustomMethods.width(
+                                                  context, 40),
+                                              right: CustomMethods.width(
+                                                  context, 31),
+                                            ),
+                                            width: double.infinity,
+                                            height: CustomMethods.width(
+                                                context, 8.3),
+                                            decoration: BoxDecoration(
+                                              color: ColorsClass.dark
+                                                  .withOpacity(0.7),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(
+                                                  CustomMethods.width(
+                                                      context, 20),
+                                                ),
+                                                bottomRight: Radius.circular(
+                                                  CustomMethods.width(
+                                                      context, 20),
+                                                ),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    provider
+                                                            .recomendationsData[
+                                                                provider.index]
+                                                            .title ??
+                                                        "...",
+                                                    style: TextStyle(
+                                                      color: ColorsClass.milk
+                                                          .withOpacity(0.7),
+                                                      fontFamily: "PatuaOne",
+                                                      fontSize:
+                                                          CustomMethods.width(
+                                                              context, 19),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    width: CustomMethods.width(
+                                                        context, 15)),
+                                                Text(
+                                                  "⭐ ${provider.recomendationsData[provider.index].score ?? "--"}",
                                                   style: TextStyle(
                                                     color: ColorsClass.milk
-                                                        .withOpacity(0.7),
+                                                        .withOpacity(0.8),
                                                     fontFamily: "PatuaOne",
                                                     fontSize:
                                                         CustomMethods.width(
                                                             context, 19),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                  width: CustomMethods.width(
-                                                      context, 15)),
-                                              Text(
-                                                "⭐ ${provider.recomendationsData[provider.index].score ?? "--"}",
-                                                style: TextStyle(
-                                                  color: ColorsClass.milk
-                                                      .withOpacity(0.8),
-                                                  fontFamily: "PatuaOne",
-                                                  fontSize: CustomMethods.width(
-                                                      context, 19),
-                                                ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Container(
@@ -282,7 +305,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SliverList.list(children: [
-                    CustomWidgets.height(context, 40),
                     Padding(
                       padding: EdgeInsets.only(
                           left: CustomMethods.width(context, 17)),

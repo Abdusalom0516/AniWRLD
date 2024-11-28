@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:anime_world/moduls/anime_info_short.dart';
@@ -32,5 +33,12 @@ class TopRated extends ChangeNotifier {
     } else {
       LogService().e("Had a problem while getting Response from the Server");
     }
+
+     Timer(
+      const Duration(seconds: 2),
+      () => notifyListeners(),
+    );
   }
+
+
 }

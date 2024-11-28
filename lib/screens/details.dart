@@ -1,7 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/details_data.dart';
-import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
@@ -19,6 +18,15 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  InheritedWidget? inheritedWidget;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    inheritedWidget =
+        context.dependOnInheritedWidgetOfExactType<InheritedWidget>();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -27,8 +35,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void dispose() {
+    if (inheritedWidget != null) {
+      BackButtonInterceptor.remove(myInterceptor);
+    }
     super.dispose();
-    BackButtonInterceptor.remove(myInterceptor);
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
@@ -39,9 +49,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<DetailsData>(context).startSliding();
-    return Consumer<NavigationIndex>(
-      builder: (context, providerOuter, child) => Scaffold(
+    // Provider.of<DetailsData>(context).startSliding();
+    return Consumer2<NavigationIndex, DetailsData>(
+      builder: (context, providerOuter, provider, child) => Scaffold(
           backgroundColor: ColorsClass.dark,
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: providerOuter.index,
@@ -65,219 +75,214 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.search), label: "Search"),
               ]),
-          body: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        color: ColorsClass.milk,
-                        width: CustomMethods.width(context, 550)))),
-            child: Column(
-              children: [
-                // Top Part
-                Expanded(
-                    flex: 3,
-                    // Thumbnail of the Anime Part
-                    child: Consumer<DetailsData>(
-                      builder: (context, provider, child) => Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    provider.listOfDetailsImg[provider.index]),
-                                fit: BoxFit.cover)),
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          color: ColorsClass.milk,
-                                          width: CustomMethods.width(
-                                              context, 200))),
-                                  gradient: LinearGradient(
-                                      begin: Alignment.bottomLeft,
-                                      colors: [
-                                        ColorsClass.dark.withOpacity(0.37),
-                                        ColorsClass.dark.withOpacity(0.5)
-                                      ])),
-                            ),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: GestureDetector(
-                                onTap: () {
-                                  provider.increment();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorsClass.milk.withOpacity(0.8),
-                                  ),
-                                  padding: EdgeInsets.all(
-                                    CustomMethods.width(context, 30),
-                                  ),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: ColorsClass.dark,
-                                    size: CustomMethods.width(context, 15),
-                                  ),
+          body: provider.animeDetails["title"] == null
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: ColorsClass.milk,
+                  strokeAlign: CustomMethods.width(context, 111),
+                ))
+              : Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: ColorsClass.milk,
+                              width: CustomMethods.width(context, 550)))),
+                  child: Column(
+                    children: [
+                      // Top Part
+                      Expanded(
+                        flex: 4,
+                        // Thumbnail of the Anime Part
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      provider.animeDetails["image"]),
+                                  fit: BoxFit.cover)),
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: ColorsClass.milk,
+                                            width: CustomMethods.width(
+                                                context, 200))),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomLeft,
+                                        colors: [
+                                          ColorsClass.dark.withOpacity(0.6),
+                                          ColorsClass.dark.withOpacity(0.5)
+                                        ])),
+                              ),
+                              //Poster Part
+                              Container(
+                                alignment: Alignment.bottomRight,
+                                margin: EdgeInsets.only(
+                                  right: CustomMethods.width(context, 27),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: GestureDetector(
-                                onTap: () {
-                                  provider.decrement();
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorsClass.milk.withOpacity(0.8),
-                                  ),
-                                  padding: EdgeInsets.all(
-                                    CustomMethods.width(context, 30),
-                                  ),
-                                  child: Icon(
-                                    Icons.arrow_back_ios_rounded,
-                                    color: ColorsClass.dark,
-                                    size: CustomMethods.width(context, 15),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            // Poster Part
-                            Container(
-                              alignment: Alignment.bottomRight,
-                              margin: EdgeInsets.only(
-                                right: CustomMethods.width(context, 27),
-                              ),
-                              child: Transform.translate(
-                                offset: Offset(
-                                    0, CustomMethods.width(context, 3.9)),
-                                child: Container(
-                                  height: CustomMethods.width(context, 2.2),
-                                  width: CustomMethods.width(context, 3.2),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: ColorsClass.milk,
-                                          width: CustomMethods.width(
-                                              context, 210)),
-                                      borderRadius: BorderRadius.circular(
-                                          CustomMethods.width(context, 27)),
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                              "https://i.pinimg.com/474x/d5/1c/0a/d51c0ab7b0493a2a22b2b5a83a73001a.jpg"),
-                                          fit: BoxFit.fill)),
+                                child: Transform.translate(
+                                  offset: Offset(
+                                      0, CustomMethods.width(context, 3.9)),
                                   child: Container(
+                                    height: CustomMethods.width(context, 2.2),
+                                    width: CustomMethods.width(context, 3.2),
                                     decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ColorsClass.milk,
+                                            width: CustomMethods.width(
+                                                context, 210)),
                                         borderRadius: BorderRadius.circular(
                                             CustomMethods.width(context, 27)),
-                                        gradient: LinearGradient(colors: [
-                                          ColorsClass.dark.withOpacity(0.2),
-                                          ColorsClass.dark.withOpacity(0.2)
-                                        ])),
+                                        image: DecorationImage(
+                                            image: NetworkImage(provider
+                                                .animeDetails["thumbnail"]),
+                                            fit: BoxFit.fill)),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              CustomMethods.width(context, 27)),
+                                          gradient: LinearGradient(colors: [
+                                            ColorsClass.dark.withOpacity(0.3),
+                                            ColorsClass.dark.withOpacity(0.25)
+                                          ])),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    )),
-                // Bottom Part
-                Expanded(
-                  flex: 5,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      right: CustomMethods.width(context, 27),
-                      left: CustomMethods.width(context, 50),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      // Bottom Part
+                      Expanded(
+                        flex: 8,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            right: CustomMethods.width(context, 27),
+                            left: CustomMethods.width(context, 50),
+                          ),
+                          child: Column(
                             children: [
-                              Expanded(
-                                flex: 2,
-                                child: Column(
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // Title Part
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          top:
-                                              CustomMethods.width(context, 31)),
-                                      child: Row(
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
+                                          // Title Part
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                top: CustomMethods.width(
+                                                    context, 31)),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right:
+                                                          CustomMethods.width(
+                                                              context, 70)),
+                                                  child: Icon(
+                                                    Icons.circle,
+                                                    color: ColorsClass.yellow,
+                                                    size: CustomMethods.width(
+                                                        context, 35),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Text(
+                                                    provider.animeDetails[
+                                                            "title"] ??
+                                                        "unknown",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: ColorsClass.milk
+                                                            .withOpacity(0.9),
+                                                        fontFamily: "PatuaOne",
+                                                        fontSize:
+                                                            CustomMethods.width(
+                                                                context, 17)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: CustomMethods.width(
+                                                context, 30),
+                                          ),
+                                          // Year and Score Part
                                           Padding(
                                             padding: EdgeInsets.only(
                                                 right: CustomMethods.width(
-                                                    context, 70)),
-                                            child: Icon(
-                                              Icons.circle,
-                                              color: ColorsClass.yellow,
-                                              size: CustomMethods.width(
-                                                  context, 35),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              "Naruto Shippudennnnnn",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  color: ColorsClass.milk
-                                                      .withOpacity(0.9),
-                                                  fontFamily: "PatuaOne",
-                                                  fontSize: CustomMethods.width(
-                                                      context, 17)),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: CustomMethods.width(context, 30),
-                                    ),
-                                    // Year and Score Part
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          right:
-                                              CustomMethods.width(context, 31)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // Score Part
-                                          Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: CustomMethods.width(
-                                                    context, 110),
-                                                horizontal: CustomMethods.width(
-                                                    context, 20)),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                width: CustomMethods.width(
-                                                    context, 200),
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.8),
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      CustomMethods.width(
-                                                          context, 40)),
-                                            ),
+                                                    context, 31)),
                                             child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                Icon(Icons.star,
-                                                    color: ColorsClass.yellow),
+                                                // Score Part
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical:
+                                                          CustomMethods.width(
+                                                              context, 110),
+                                                      horizontal:
+                                                          CustomMethods.width(
+                                                              context, 20)),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      width:
+                                                          CustomMethods.width(
+                                                              context, 200),
+                                                      color: ColorsClass.milk
+                                                          .withOpacity(0.8),
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            CustomMethods.width(
+                                                                context, 40)),
+                                                  ),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.star,
+                                                          color: ColorsClass
+                                                              .yellow),
+                                                      Text(
+                                                        " ${provider.animeDetails["score"] ?? "--"}",
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                            color: ColorsClass
+                                                                .milk
+                                                                .withOpacity(
+                                                                    0.9),
+                                                            fontFamily:
+                                                                "PatuaOne",
+                                                            fontSize:
+                                                                CustomMethods
+                                                                    .width(
+                                                                        context,
+                                                                        21)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                // Year Part
                                                 Text(
-                                                  " 8.7",
+                                                  "Y: ${provider.animeDetails["year"] ?? "----"}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                       color: ColorsClass.milk
-                                                          .withOpacity(0.9),
+                                                          .withOpacity(0.8),
                                                       fontFamily: "PatuaOne",
                                                       fontSize:
                                                           CustomMethods.width(
@@ -286,128 +291,124 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               ],
                                             ),
                                           ),
-                                          // Year Part
-                                          Text(
-                                            "Y: 2011",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.8),
-                                                fontFamily: "PatuaOne",
-                                                fontSize: CustomMethods.width(
-                                                    context, 21)),
-                                          ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: CustomMethods.width(context, 23),
-                              ),
-                              // Anime Poster Part
-                              Expanded(child: Container())
-                            ]),
-
-                        // Bottom Part
-                        CustomWidgets.height(
-                            context, CustomMethods.width(context, 25)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            // Trailer Part
-                            Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: CustomMethods.width(context, 70),
-                                    horizontal:
-                                        CustomMethods.width(context, 13)),
-                                decoration: BoxDecoration(
-                                  color: ColorsClass.darkRed,
-                                  border: Border.all(
-                                    width: CustomMethods.width(context, 200),
-                                    color: ColorsClass.milk.withOpacity(0.8),
-                                  ),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {},
-                                  child: Text(
-                                    " Trailer",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color:
-                                            ColorsClass.milk.withOpacity(0.9),
-                                        fontFamily: "PatuaOne",
-                                        fontSize:
-                                            CustomMethods.width(context, 19)),
-                                  ),
-                                )),
-                          ],
-                        ),
-                        CustomWidgets.height(
-                            context, CustomMethods.width(context, 25)),
-                        // Genres Part
-                        SizedBox(
-                          height: CustomMethods.width(context, 8.3),
-                          child: Consumer<Genres>(
-                            builder: (context, provider, child) =>
-                                ScrollConfiguration(
-                              behavior: NoGlowScrollBehavior(),
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: provider.listOfGenres.length,
-                                itemBuilder: (context, index) => Container(
-                                  width: CustomMethods.width(context, 3.5),
-                                  margin: index !=
-                                          provider.listOfGenres.length - 1
-                                      ? EdgeInsets.only(
-                                          right:
-                                              CustomMethods.width(context, 20))
-                                      : const EdgeInsets.all(0),
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          CustomMethods.width(context, 25)),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: CustomMethods.width(context, 200),
-                                      color: ColorsClass.milk.withOpacity(0.8),
+                                    SizedBox(
+                                      width: CustomMethods.width(context, 23),
                                     ),
-                                    borderRadius: BorderRadius.circular(
-                                        CustomMethods.width(context, 40)),
-                                  ),
-                                  child: Text(
-                                    provider.listOfGenres[index],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color:
-                                            ColorsClass.milk.withOpacity(0.9),
-                                        fontFamily: "PatuaOne",
-                                        fontSize:
-                                            CustomMethods.width(context, 25)),
+                                    // Anime Poster Part
+                                    Expanded(child: Container())
+                                  ]),
+
+                              // Bottom Part
+                              CustomWidgets.height(
+                                  context, CustomMethods.width(context, 25)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  // Trailer Part
+                                  Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical:
+                                              CustomMethods.width(context, 70),
+                                          horizontal:
+                                              CustomMethods.width(context, 13)),
+                                      decoration: BoxDecoration(
+                                        color: ColorsClass.darkRed,
+                                        border: Border.all(
+                                          width:
+                                              CustomMethods.width(context, 200),
+                                          color:
+                                              ColorsClass.milk.withOpacity(0.8),
+                                        ),
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Text(
+                                          "Trailer",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: ColorsClass.milk
+                                                  .withOpacity(0.9),
+                                              fontFamily: "PatuaOne",
+                                              fontSize: CustomMethods.width(
+                                                  context, 19)),
+                                        ),
+                                      )),
+                                ],
+                              ),
+                              CustomWidgets.height(
+                                  context, CustomMethods.width(context, 25)),
+                              // Genres Part
+                              SizedBox(
+                                height: CustomMethods.width(context, 8.3),
+                                child: ScrollConfiguration(
+                                  behavior: NoGlowScrollBehavior(),
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        provider.animeDetails["genres"].length,
+                                    itemBuilder: (context, index) => Container(
+                                      width: CustomMethods.width(context, 3.5),
+                                      margin: index !=
+                                              provider.animeDetails["genres"]
+                                                      .length -
+                                                  1
+                                          ? EdgeInsets.only(
+                                              right: CustomMethods.width(
+                                                  context, 20))
+                                          : const EdgeInsets.all(0),
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              CustomMethods.width(context, 25)),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width:
+                                              CustomMethods.width(context, 200),
+                                          color:
+                                              ColorsClass.milk.withOpacity(0.8),
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                            CustomMethods.width(context, 40)),
+                                      ),
+                                      child: Text(
+                                        provider.animeDetails["genres"][index],
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: ColorsClass.milk
+                                                .withOpacity(0.9),
+                                            fontFamily: "PatuaOne",
+                                            fontSize: CustomMethods.width(
+                                                context, 25)),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              CustomWidgets.height(
+                                  context, CustomMethods.width(context, 15)),
+                              // Description Part
+                              Expanded(
+                                child: Text(
+                                  provider.animeDetails["description"],
+                                  maxLines: 9,
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      color: ColorsClass.milk.withOpacity(0.8),
+                                      fontFamily: "PatuaOne",
+                                      fontSize:
+                                          CustomMethods.width(context, 23)),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        CustomWidgets.height(
-                            context, CustomMethods.width(context, 15)),
-                        // Description Part
-                        Text(
-                          "Naruto Shippuden follows Naruto Uzumaki, a determined young ninja returning to his village after intense training. Set two and a half years after Naruto, the series dives into Naruto's mission to rescue his estranged friend Sasuke and protect his village from powerful enemies, including the sinister Akatsuki organization. I love Obito even though he was villain.",
-                          style: TextStyle(
-                              color: ColorsClass.milk.withOpacity(0.9),
-                              fontFamily: "PatuaOne",
-                              fontSize: CustomMethods.width(context, 23)),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )),
+                )),
     );
   }
 }

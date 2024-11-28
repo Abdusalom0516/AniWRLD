@@ -1,7 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/providers/popular.dart';
 import 'package:anime_world/providers/details_data.dart';
-import 'package:anime_world/providers/genres.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/providers/search_results.dart';
@@ -33,7 +32,6 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => RecommendationImg()),
           ChangeNotifierProvider(create: (context) => TopRated()),
           ChangeNotifierProvider(create: (context) => Popular()),
-          ChangeNotifierProvider(create: (context) => Genres()),
           ChangeNotifierProvider(create: (context) => SearchResults()),
           ChangeNotifierProvider(create: (context) => NavigationIndex()),
           ChangeNotifierProvider(create: (context) => DetailsData())

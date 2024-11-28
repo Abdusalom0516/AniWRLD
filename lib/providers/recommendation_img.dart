@@ -74,7 +74,7 @@ class RecommendationImg extends ChangeNotifier {
 
   Future<void> getRecommendedAnimes() async {
     final response =
-        await get(Uri.parse("https://api.jikan.moe/v4/seasons/now"));
+        await get(Uri.parse("https://api.jikan.moe/v4/seasons/2022/fall"));
 
     final data = [];
     if (response.statusCode == 200) {
@@ -91,11 +91,14 @@ class RecommendationImg extends ChangeNotifier {
         LogService().e(e.toString());
       }
       notifyListeners();
-      // LogService().e(recomendationsData.length.toString());
-      // LogService().d(data.toString());
     } else {
       LogService().e("Had a problem while getting Response from the Server");
     }
+
+    Timer(
+      const Duration(seconds: 2),
+      () => notifyListeners(),
+    );
   }
 
   // Future<bool> isImageValid(String url) async {

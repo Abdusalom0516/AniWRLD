@@ -16,6 +16,7 @@ dependencies:
   go_router: ^14.6.0
   http: ^1.2.2
   logger: ^2.5.0
+  back_button_interceptor: ^8.0.0
 
 dev_dependencies:
   flutter_test:

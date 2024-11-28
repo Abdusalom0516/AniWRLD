@@ -5,8 +5,11 @@ import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/providers/top_rated.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,6 +22,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    _showExitConfirmation(context);
+    return true;
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -51,10 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.list_alt_sharp), label: "Details"),
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.search), label: "Search"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.settings_outlined),
-                    label: "Settings",
-                    activeIcon: Icon(Icons.settings)),
               ]),
           body: Container(
             width: double.infinity,
@@ -101,19 +117,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius: BorderRadius.circular(
                                       CustomMethods.width(context, 20),
                                     ),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        provider
-                                                .recomendationsData[
-                                                    provider.index]
-                                                .img ??
-                                            "https://wallpapers.com/images/hd/dark-background-b59iy2towqy5yrgb.jpg",
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
                                   ),
                                   child: Stack(
                                     children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            CustomMethods.width(context, 20)),
+                                        child: CachedNetworkImage(
+                                          imageUrl: provider
+                                                  .recomendationsData[
+                                                      provider.index]
+                                                  .img ??
+                                              "https://wallpapers.com/images/hd/dark-background-b59iy2towqy5yrgb.jpg",
+                                          fit: BoxFit.fill,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorsClass.milk,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(
+                                            Icons.image_not_supported_outlined,
+                                            color: ColorsClass.lightBlue,
+                                            size:
+                                                CustomMethods.width(context, 7),
+                                          ),
+                                        ),
+                                      ),
                                       Container(
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
@@ -127,28 +159,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                       ),
-                                      Container(
+                                      Align(
                                         alignment: Alignment.bottomCenter,
                                         child: Container(
                                           padding: EdgeInsets.only(
-                                              left: CustomMethods.width(
-                                                  context, 40),
-                                              right: CustomMethods.width(
-                                                  context, 31)),
+                                            left: CustomMethods.width(
+                                                context, 40),
+                                            right: CustomMethods.width(
+                                                context, 31),
+                                          ),
                                           width: double.infinity,
                                           height:
                                               CustomMethods.width(context, 8.3),
                                           decoration: BoxDecoration(
-                                              color: ColorsClass.dark
-                                                  .withOpacity(0.7),
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(
-                                                    CustomMethods.width(
-                                                        context, 20),
-                                                  ),
-                                                  bottomRight: Radius.circular(
-                                                      CustomMethods.width(
-                                                          context, 20)))),
+                                            color: ColorsClass.dark
+                                                .withOpacity(0.7),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                CustomMethods.width(
+                                                    context, 20),
+                                              ),
+                                              bottomRight: Radius.circular(
+                                                CustomMethods.width(
+                                                    context, 20),
+                                              ),
+                                            ),
+                                          ),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -163,24 +199,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .title ??
                                                       "...",
                                                   style: TextStyle(
-                                                      color: ColorsClass.milk
-                                                          .withOpacity(0.7),
-                                                      fontFamily: "PatuaOne",
-                                                      fontSize:
-                                                          CustomMethods.width(
-                                                              context, 19)),
-                                                ),
-                                              ),
-                                              CustomWidgets.width(context, 15),
-                                              Text(
-                                                "⭐ ${provider.recomendationsData[provider.index].score ?? "--"}",
-                                                style: TextStyle(
                                                     color: ColorsClass.milk
-                                                        .withOpacity(0.8),
+                                                        .withOpacity(0.7),
                                                     fontFamily: "PatuaOne",
                                                     fontSize:
                                                         CustomMethods.width(
-                                                            context, 19)),
+                                                            context, 19),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  width: CustomMethods.width(
+                                                      context, 15)),
+                                              Text(
+                                                "⭐ ${provider.recomendationsData[provider.index].score ?? "--"}",
+                                                style: TextStyle(
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.8),
+                                                  fontFamily: "PatuaOne",
+                                                  fontSize: CustomMethods.width(
+                                                      context, 19),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -521,4 +560,45 @@ class NoGlowScrollBehavior extends ScrollBehavior {
       BuildContext context, Widget child, ScrollableDetails details) {
     return child;
   }
+}
+
+void _showExitConfirmation(BuildContext context) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        backgroundColor: ColorsClass.milk,
+        title: const Text(
+          'Exit Confirmation',
+          style: TextStyle(fontFamily: "PatuaOne"),
+        ),
+        content: Text('Do you really want to quit?',
+            style: TextStyle(
+                fontFamily: "PatuaOne",
+                color: ColorsClass.dark.withOpacity(0.6),
+                fontSize: CustomMethods.width(context, 23))),
+        actions: <Widget>[
+          TextButton(
+            child: Text('No',
+                style: TextStyle(
+                  fontFamily: "PatuaOne",
+                  fontSize: CustomMethods.width(context, 21),
+                )),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          TextButton(
+            child: Text('Yes',
+                style: TextStyle(
+                    fontFamily: "PatuaOne",
+                    fontSize: CustomMethods.width(context, 21))),
+            onPressed: () {
+              Navigator.of(context).pop();
+              SystemNavigator.pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

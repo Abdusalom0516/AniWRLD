@@ -4,6 +4,7 @@ import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/search_results.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     _focusNode.requestFocus();
+    BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
@@ -33,6 +35,13 @@ class _SearchScreenState extends State<SearchScreen> {
     _searchController.dispose();
     _focusNode.dispose();
     super.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    Provider.of<NavigationIndex>(context, listen: false)
+        .changeIndex(context, 0);
+    return true;
   }
 
   @override
@@ -65,11 +74,6 @@ class _SearchScreenState extends State<SearchScreen> {
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.search),
               label: "Search",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label: "Settings",
-              activeIcon: Icon(Icons.settings),
             ),
           ],
         ),
@@ -384,7 +388,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
-                                      childAspectRatio: 1 / 1.5,
+                                      childAspectRatio: 1 / 1.4,
                                       mainAxisSpacing:
                                           CustomMethods.width(context, 25),
                                       crossAxisSpacing:

@@ -470,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           CustomWidgets.width(context, 67),
                           Text(
-                            "Popular",
+                            "Random",
                             style: TextStyle(
                                 color: ColorsClass.milk.withOpacity(0.7),
                                 fontFamily: "PatuaOne",

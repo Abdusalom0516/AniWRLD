@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:anime_world/moduls/anime_info_short.dart';
 import 'package:anime_world/services/logger.dart';
@@ -10,8 +11,13 @@ class Popular extends ChangeNotifier {
   List<AnimeInfoShort> popularAnimes = [];
 
   Future<void> getPopularAnimes() async {
-    final response =
-        await get(Uri.parse("https://api.jikan.moe/v4/anime"));
+    Random random = Random();
+    int randomNum =
+        random.nextInt(int.parse(DateTime.now().year.toString()[3]) + 1);
+    int randomMonth = random.nextInt(4);
+    List<String> months = ["winter", "spring", "summer", "fall"];
+    final response = await get(
+        Uri.parse("https://api.jikan.moe/v4/seasons/202$randomNum/${months[randomMonth]}"));
 
     final data = [];
     if (response.statusCode == 200) {
@@ -34,7 +40,7 @@ class Popular extends ChangeNotifier {
       LogService().e("Had a problem while getting Response from the Server");
     }
 
-     Timer(
+    Timer(
       const Duration(seconds: 2),
       () => notifyListeners(),
     );

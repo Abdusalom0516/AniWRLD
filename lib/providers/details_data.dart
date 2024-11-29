@@ -41,7 +41,7 @@ class DetailsData extends ChangeNotifier {
         animeDetails["trailer"] = data["trailer"]["url"];
         animeDetails["description"] = data["synopsis"] ?? "unknown";
         animeDetails["thumbnail"] = data["images"]["jpg"]["large_image_url"] ?? "https://i.pinimg.com/736x/2c/3c/bc/2c3cbc0bb22b93579ebdd3fd69d00229.jpg";
-        animeDetails["image"] = data["trailer"]["images"]["medium_image_url"] ?? "https://i.pinimg.com/736x/9a/30/1f/9a301fa6a41ba85606cdda378b4c4d92.jpg";
+        animeDetails["image"] = data["trailer"]["images"]["medium_image_url"] ?? "https://i.pinimg.com/736x/a2/cc/98/a2cc981a10723285a724a47d45443388.jpg";
         animeDetails["genres"] = _takeGenres(data["genres"]);
         // ignore: use_build_context_synchronously
         

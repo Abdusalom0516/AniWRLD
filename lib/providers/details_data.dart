@@ -16,14 +16,14 @@ class DetailsData extends ChangeNotifier {
   ];
 
   Map<String, dynamic> animeDetails = {
-    "title": null,
-    "score": null,
-    "year": null,
-    "trailer": null,
-    "description": null,
-    "thumbnail": null,
-    "image": null,
-    "genres": null
+    "title": "Vinland Saga Season 2",
+    "score": 8.81,
+    "year": 2023,
+    "trailer": "https://www.youtube.com/watch?v=jBetoIlnDIM",
+    "description": "After his father's death and the destruction of his village at the hands of English raiders, Einar wishes for a peaceful life with his family on their newly rebuilt farms. However, fate has other plans: his village is invaded once again. Einar watches helplessly as the marauding Danes burn his lands and slaughter his family. The invaders capture Einar and take him back to Denmark as a slave. \n\nEinar clings to his mother's final words to survive. He is purchased by Ketil, a kind slave owner and landlord who promises that Einar can regain his freedom in return for working in the fields. Soon, Einar encounters his new partner in farm cultivation—Thorfinn, a dejected and melancholic slave. As Einar and Thorfinn work together toward their freedom, they are haunted by both sins of the past and the ploys of the present. Yet they carry on, grasping for a glimmer of hope, redemption, and peace in a world that is nothing but unjust and unforgiving.\n\n[Written by MAL Rewrite]",
+    "thumbnail": "https://cdn.myanimelist.net/images/anime/1170/124312l.jpg",
+    "image": "https://img.youtube.com/vi/jBetoIlnDIM/mqdefault.jpg",
+    "genres": ["Action", "Adventure", "Drama"]
   };
 
   Future<void> getDetailedInfo(int id, BuildContext context) async {

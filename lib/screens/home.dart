@@ -1,4 +1,5 @@
 import 'package:anime_world/config/colors.dart';
+import 'package:anime_world/customs/alert_dialog.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/popular.dart';
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    _showExitConfirmation(context);
+    MyAlertDialog.showExitConfirmation(context);
     return true;
   }
 
@@ -60,7 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedItemColor: ColorsClass.lightBlue,
               unselectedItemColor: ColorsClass.milk,
               onTap: (value) {
-                providerOuter.changeIndex(context, value);
+                if (value == 3) {
+                  MyAlertDialog.showExitConfirmation(context);
+                } else {
+                  providerOuter.changeIndex(context, value);
+                }
               },
               type: BottomNavigationBarType.fixed,
               items: const [
@@ -72,6 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.list_alt_sharp), label: "Details"),
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.search), label: "Search"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.logout_rounded), label: "Leave"),
               ]),
           body: Container(
             width: double.infinity,
@@ -106,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 GestureDetector(
                                   onTap: () {
                                     // Trying to get the Detailed data
-                                    print("Fuck youuuu");
                                     Provider.of<DetailsData>(context,
                                             listen: false)
                                         .getDetailedInfo(
@@ -336,89 +342,102 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                           itemCount: provider.topRatedAnimes.length,
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Container(
-                            margin: index == 0
-                                ? EdgeInsets.only(
-                                    left: CustomMethods.width(context, 17),
-                                    right: CustomMethods.width(context, 17),
-                                  )
-                                : EdgeInsets.only(
-                                    right: CustomMethods.width(context, 17),
-                                  ),
-                            width: CustomMethods.width(context, 2.7),
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: ColorsClass.milk,
-                                    width: CustomMethods.width(context, 600)),
-                                borderRadius: BorderRadius.circular(
-                                    CustomMethods.width(context, 20)),
-                                image: DecorationImage(
-                                    image: NetworkImage(provider
-                                            .topRatedAnimes[index].img ??
-                                        "https://i.pinimg.com/736x/f6/76/83/f67683016eb44f1fa4ef785fa0f71039.jpg"),
-                                    fit: BoxFit.fill)),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(
-                                          CustomMethods.width(context, 20)),
-                                      gradient: LinearGradient(colors: [
-                                        Colors.black.withOpacity(0.37),
-                                        Colors.black.withOpacity(0.37)
-                                      ])),
-                                ),
-                                Container(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    padding: EdgeInsets.all(
-                                        CustomMethods.width(context, 40)),
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    height: CustomMethods.width(context, 10.7),
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () {
+                                    // Trying to get the Detailed data
+                                    Provider.of<DetailsData>(context,
+                                            listen: false)
+                                        .getDetailedInfo(
+                                            provider.topRatedAnimes[index].id!,
+                                            context);
+                                    Provider.of<NavigationIndex>(context,
+                                            listen: false)
+                                        .changeIndex(context, 1);
+                                  },
+                            child: Container(
+                              margin: index == 0
+                                  ? EdgeInsets.only(
+                                      left: CustomMethods.width(context, 17),
+                                      right: CustomMethods.width(context, 17),
+                                    )
+                                  : EdgeInsets.only(
+                                      right: CustomMethods.width(context, 17),
+                                    ),
+                              width: CustomMethods.width(context, 2.7),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: ColorsClass.milk,
+                                      width: CustomMethods.width(context, 600)),
+                                  borderRadius: BorderRadius.circular(
+                                      CustomMethods.width(context, 20)),
+                                  image: DecorationImage(
+                                      image: NetworkImage(provider
+                                              .topRatedAnimes[index].img ??
+                                          "https://i.pinimg.com/736x/f6/76/83/f67683016eb44f1fa4ef785fa0f71039.jpg"),
+                                      fit: BoxFit.fill)),
+                              child: Stack(
+                                children: [
+                                  Container(
                                     decoration: BoxDecoration(
-                                        color:
-                                            ColorsClass.dark.withOpacity(0.83),
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(
-                                                CustomMethods.width(
-                                                    context, 20)),
-                                            bottomRight: Radius.circular(
-                                                CustomMethods.width(
-                                                    context, 20)))),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            overflow: TextOverflow.ellipsis,
-                                            provider.topRatedAnimes[index]
-                                                    .title ??
-                                                "...",
+                                        borderRadius: BorderRadius.circular(
+                                            CustomMethods.width(context, 20)),
+                                        gradient: LinearGradient(colors: [
+                                          Colors.black.withOpacity(0.37),
+                                          Colors.black.withOpacity(0.37)
+                                        ])),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Container(
+                                      padding: EdgeInsets.all(
+                                          CustomMethods.width(context, 40)),
+                                      alignment: Alignment.center,
+                                      width: double.infinity,
+                                      height: CustomMethods.width(context, 10.7),
+                                      decoration: BoxDecoration(
+                                          color:
+                                              ColorsClass.dark.withOpacity(0.83),
+                                          borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                  CustomMethods.width(
+                                                      context, 20)),
+                                              bottomRight: Radius.circular(
+                                                  CustomMethods.width(
+                                                      context, 20)))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              overflow: TextOverflow.ellipsis,
+                                              provider.topRatedAnimes[index]
+                                                      .title ??
+                                                  "...",
+                                              style: TextStyle(
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.7),
+                                                  fontFamily: "PatuaOne",
+                                                  fontSize: CustomMethods.width(
+                                                      context, 31)),
+                                            ),
+                                          ),
+                                          CustomWidgets.width(context, 63),
+                                          Text(
+                                            "⭐ ${provider.topRatedAnimes[index].score ?? "--"}",
                                             style: TextStyle(
                                                 color: ColorsClass.milk
                                                     .withOpacity(0.7),
                                                 fontFamily: "PatuaOne",
                                                 fontSize: CustomMethods.width(
-                                                    context, 31)),
+                                                    context, 33)),
                                           ),
-                                        ),
-                                        CustomWidgets.width(context, 63),
-                                        Text(
-                                          "⭐ ${provider.topRatedAnimes[index].score ?? "--"}",
-                                          style: TextStyle(
-                                              color: ColorsClass.milk
-                                                  .withOpacity(0.7),
-                                              fontFamily: "PatuaOne",
-                                              fontSize: CustomMethods.width(
-                                                  context, 33)),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -477,62 +496,87 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            return Container(
-                              width: CustomMethods.width(context, 2.7),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: ColorsClass.milk,
-                                  width: CustomMethods.width(context, 600),
-                                ),
-                                borderRadius: BorderRadius.circular(
-                                  CustomMethods.width(context, 20),
-                                ),
-                                image: DecorationImage(
-                                  image: NetworkImage(provider
-                                          .popularAnimes[index].img ??
-                                      "https://i.pinimg.com/736x/22/80/23/2280238f9ad9f2278c6ac2301a8f20de.jpg"),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            CustomMethods.width(context, 20)),
-                                        gradient: LinearGradient(colors: [
-                                          Colors.black.withOpacity(0.37),
-                                          Colors.black.withOpacity(0.37)
-                                        ])),
+                            return GestureDetector(
+                              onTap: () {
+                                    // Trying to get the Detailed data
+                                    Provider.of<DetailsData>(context,
+                                            listen: false)
+                                        .getDetailedInfo(
+                                            provider
+                                               .popularAnimes[index]
+                                                .id!,
+                                            context);
+                                    Provider.of<NavigationIndex>(context,
+                                            listen: false)
+                                        .changeIndex(context, 1);
+                                  },
+                              child: Container(
+                                width: CustomMethods.width(context, 2.7),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: ColorsClass.milk,
+                                    width: CustomMethods.width(context, 600),
                                   ),
-                                  Container(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      padding: EdgeInsets.all(
-                                          CustomMethods.width(context, 40)),
-                                      alignment: Alignment.center,
-                                      width: double.infinity,
-                                      height: CustomMethods.width(context, 8.7),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomMethods.width(context, 20),
+                                  ),
+                                  image: DecorationImage(
+                                    image: NetworkImage(provider
+                                            .popularAnimes[index].img ??
+                                        "https://i.pinimg.com/736x/22/80/23/2280238f9ad9f2278c6ac2301a8f20de.jpg"),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Container(
                                       decoration: BoxDecoration(
-                                          color:
-                                              ColorsClass.dark.withOpacity(0.8),
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(
-                                                  CustomMethods.width(
-                                                      context, 20)),
-                                              bottomRight: Radius.circular(
-                                                  CustomMethods.width(
-                                                      context, 20)))),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              provider.popularAnimes[index]
-                                                      .title ??
-                                                  "...",
+                                          borderRadius: BorderRadius.circular(
+                                              CustomMethods.width(context, 20)),
+                                          gradient: LinearGradient(colors: [
+                                            Colors.black.withOpacity(0.37),
+                                            Colors.black.withOpacity(0.37)
+                                          ])),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                        padding: EdgeInsets.all(
+                                            CustomMethods.width(context, 40)),
+                                        alignment: Alignment.center,
+                                        width: double.infinity,
+                                        height: CustomMethods.width(context, 8.7),
+                                        decoration: BoxDecoration(
+                                            color:
+                                                ColorsClass.dark.withOpacity(0.8),
+                                            borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(
+                                                    CustomMethods.width(
+                                                        context, 20)),
+                                                bottomRight: Radius.circular(
+                                                    CustomMethods.width(
+                                                        context, 20)))),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                provider.popularAnimes[index]
+                                                        .title ??
+                                                    "...",
+                                                style: TextStyle(
+                                                    color: ColorsClass.milk
+                                                        .withOpacity(0.7),
+                                                    fontFamily: "PatuaOne",
+                                                    fontSize: CustomMethods.width(
+                                                        context, 27)),
+                                              ),
+                                            ),
+                                            CustomWidgets.width(context, 51),
+                                            Text(
+                                              "⭐ ${provider.popularAnimes[index].score ?? "--"}",
                                               style: TextStyle(
                                                   color: ColorsClass.milk
                                                       .withOpacity(0.7),
@@ -540,22 +584,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fontSize: CustomMethods.width(
                                                       context, 27)),
                                             ),
-                                          ),
-                                          CustomWidgets.width(context, 51),
-                                          Text(
-                                            "⭐ ${provider.popularAnimes[index].score ?? "--"}",
-                                            style: TextStyle(
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.7),
-                                                fontFamily: "PatuaOne",
-                                                fontSize: CustomMethods.width(
-                                                    context, 27)),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -582,45 +616,4 @@ class NoGlowScrollBehavior extends ScrollBehavior {
       BuildContext context, Widget child, ScrollableDetails details) {
     return child;
   }
-}
-
-void _showExitConfirmation(BuildContext context) {
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        backgroundColor: ColorsClass.milk,
-        title: const Text(
-          'Exit Confirmation',
-          style: TextStyle(fontFamily: "PatuaOne"),
-        ),
-        content: Text('Do you really want to quit?',
-            style: TextStyle(
-                fontFamily: "PatuaOne",
-                color: ColorsClass.dark.withOpacity(0.6),
-                fontSize: CustomMethods.width(context, 23))),
-        actions: <Widget>[
-          TextButton(
-            child: Text('No',
-                style: TextStyle(
-                  fontFamily: "PatuaOne",
-                  fontSize: CustomMethods.width(context, 21),
-                )),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          TextButton(
-            child: Text('Yes',
-                style: TextStyle(
-                    fontFamily: "PatuaOne",
-                    fontSize: CustomMethods.width(context, 21))),
-            onPressed: () {
-              Navigator.of(context).pop();
-              SystemNavigator.pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

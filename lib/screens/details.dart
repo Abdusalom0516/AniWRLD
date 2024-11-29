@@ -1,4 +1,5 @@
 import 'package:anime_world/config/colors.dart';
+import 'package:anime_world/customs/alert_dialog.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/navigation_index.dart';
@@ -62,7 +63,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
               selectedItemColor: ColorsClass.lightBlue,
               unselectedItemColor: ColorsClass.milk,
               onTap: (value) {
-                providerOuter.changeIndex(context, value);
+                if (value == 3) {
+                  MyAlertDialog.showExitConfirmation(context);
+                } else {
+                  providerOuter.changeIndex(context, value);
+                }
               },
               type: BottomNavigationBarType.fixed,
               items: const [
@@ -74,6 +79,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     icon: Icon(Icons.list_alt_sharp), label: "Details"),
                 BottomNavigationBarItem(
                     icon: Icon(CupertinoIcons.search), label: "Search"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.logout_rounded), label: "Leave"),
               ]),
           body: provider.animeDetails["title"] == null
               ? Center(

@@ -205,8 +205,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 Flexible(
                                                   child: Text(
                                                     provider.animeDetails[
-                                                            "title"] ??
-                                                        "unknown",
+                                                            "title"].toString().replaceAll("/", " "),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(

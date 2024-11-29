@@ -32,10 +32,11 @@ class TopRated extends ChangeNotifier {
       // LogService().d(data.toString());
     } else {
       LogService().e("Had a problem while getting Response from the Server");
+      notifyListeners();
     }
 
      Timer(
-      const Duration(seconds: 2),
+      const Duration(milliseconds: 2200),
       () => notifyListeners(),
     );
   }

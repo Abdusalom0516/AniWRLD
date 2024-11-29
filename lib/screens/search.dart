@@ -1,5 +1,6 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/config/img_paths.dart';
+import 'package:anime_world/customs/alert_dialog.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/navigation_index.dart';
@@ -58,7 +59,11 @@ class _SearchScreenState extends State<SearchScreen> {
           selectedItemColor: ColorsClass.lightBlue,
           unselectedItemColor: ColorsClass.milk,
           onTap: (value) {
-            providerOuter.changeIndex(context, value);
+            if (value == 3) {
+              MyAlertDialog.showExitConfirmation(context);
+            } else {
+              providerOuter.changeIndex(context, value);
+            }
           },
           type: BottomNavigationBarType.fixed,
           items: const [
@@ -75,6 +80,8 @@ class _SearchScreenState extends State<SearchScreen> {
               icon: Icon(CupertinoIcons.search),
               label: "Search",
             ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.logout_rounded), label: "Leave"),
           ],
         ),
         body: GestureDetector(

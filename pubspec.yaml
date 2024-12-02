@@ -17,6 +17,7 @@ dependencies:
   http: ^1.2.2
   logger: ^2.5.0
   back_button_interceptor: ^8.0.0
+  internet_connection_checker_plus: ^2.5.2
 
 dev_dependencies:
   flutter_test:

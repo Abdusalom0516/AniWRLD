@@ -86,6 +86,7 @@ class RecommendationImg extends ChangeNotifier {
               elem["trailer"]["images"]["maximum_image_url"],
               elem["title_english"],
               elem["score"]));
+           notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());

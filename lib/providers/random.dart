@@ -29,19 +29,18 @@ class Popular extends ChangeNotifier {
               elem["images"]["jpg"]["large_image_url"],
               elem["title_english"],
               elem["score"]));
+           notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());
       }
       notifyListeners();
-      // LogService().e(recomendationsData.length.toString());
-      // LogService().d(data.toString());
     } else {
       LogService().e("Had a problem while getting Response from the Server");
     }
 
     Timer(
-      const Duration(seconds: 2),
+      const Duration(milliseconds: 2200),
       () => notifyListeners(),
     );
   }

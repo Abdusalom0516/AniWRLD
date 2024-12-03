@@ -1,9 +1,10 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/alert_dialog.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/characters.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/internet_checker.dart';
-import 'package:anime_world/providers/popular.dart';
+import 'package:anime_world/providers/random.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/customs/custom_methods.dart';
@@ -127,6 +128,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             provider.index]
                                                         .id!,
                                                     context);
+                                            Provider.of<CharactersProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getAllCharacters(provider
+                                                    .recomendationsData[
+                                                        provider.index]
+                                                    .id!);
                                             Provider.of<NavigationIndex>(
                                                     context,
                                                     listen: false)
@@ -395,6 +403,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               provider
                                                   .topRatedAnimes[index].id!,
                                               context);
+                                      Provider.of<CharactersProvider>(context,
+                                              listen: false)
+                                          .getAllCharacters(
+                                        provider.topRatedAnimes[index].id!,
+                                      );
                                       Provider.of<NavigationIndex>(context,
                                               listen: false)
                                           .changeIndex(context, 1);
@@ -581,6 +594,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 provider
                                                     .popularAnimes[index].id!,
                                                 context);
+                                        Provider.of<CharactersProvider>(context,
+                                                listen: false)
+                                            .getAllCharacters(
+                                          provider.popularAnimes[index].id!,
+                                        );
                                         Provider.of<NavigationIndex>(context,
                                                 listen: false)
                                             .changeIndex(context, 1);

@@ -1,6 +1,7 @@
 import 'package:anime_world/config/colors.dart';
+import 'package:anime_world/providers/characters.dart';
 import 'package:anime_world/providers/internet_checker.dart';
-import 'package:anime_world/providers/popular.dart';
+import 'package:anime_world/providers/random.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => SearchResults()),
           ChangeNotifierProvider(create: (context) => NavigationIndex()),
           ChangeNotifierProvider(create: (context) => DetailsData()),
-          ChangeNotifierProvider(create: (context) => InternetChecker())
+          ChangeNotifierProvider(create: (context) => InternetChecker()),
+          ChangeNotifierProvider(create: (context) =>CharactersProvider())
         ],
         builder: (context, child) => MaterialApp.router(
               // Turning off the click effect from BottomNavigationBar

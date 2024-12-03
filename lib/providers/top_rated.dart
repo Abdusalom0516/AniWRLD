@@ -10,8 +10,7 @@ class TopRated extends ChangeNotifier {
   List<AnimeInfoShort> topRatedAnimes = [];
 
   Future<void> getTopRatedAnimes() async {
-    final response =
-        await get(Uri.parse("https://api.jikan.moe/v4/top/anime"));
+    final response = await get(Uri.parse("https://api.jikan.moe/v4/top/anime"));
 
     final data = [];
     if (response.statusCode == 200) {
@@ -23,23 +22,20 @@ class TopRated extends ChangeNotifier {
               elem["images"]["jpg"]["large_image_url"],
               elem["title_english"],
               elem["score"]));
+              notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());
       }
       notifyListeners();
-      // LogService().e(recomendationsData.length.toString());
-      // LogService().d(data.toString());
     } else {
       LogService().e("Had a problem while getting Response from the Server");
       notifyListeners();
     }
 
-     Timer(
-      const Duration(milliseconds: 2200),
+    Timer(
+      const Duration(milliseconds: 2300),
       () => notifyListeners(),
     );
   }
-
-
 }

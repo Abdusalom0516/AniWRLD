@@ -184,7 +184,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     child: Container(
                                       height: CustomMethods.width(context, 7),
                                       decoration: BoxDecoration(
-                                        color: ColorsClass.darkRed,
+                                        color: ColorsClass.lightBlue,
                                         borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(
                                             CustomMethods.width(context, 20),
@@ -275,17 +275,25 @@ class _SearchScreenState extends State<SearchScreen> {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Image(
-                                                        image: AssetImage(
-                                                            ImgPaths.notFound),
-                                                        height:
+                                                      Transform.translate(
+                                                        offset: Offset(
                                                             CustomMethods.width(
-                                                                context, 2.3),
+                                                                context, 29),
+                                                            0),
+                                                        child: Icon(
+                                                          Icons.search_off,
+                                                          color: ColorsClass
+                                                              .milk
+                                                              .withOpacity(0.8),
+                                                          size: CustomMethods
+                                                              .height(
+                                                                  context, 5),
+                                                        ),
                                                       ),
                                                       CustomWidgets.height(
                                                           context, 17),
                                                       Text(
-                                                        "Try again.",
+                                                        " Nothing found.",
                                                         style: TextStyle(
                                                             color: ColorsClass
                                                                 .milk
@@ -295,9 +303,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                                                 "PatuaOne",
                                                             fontSize:
                                                                 CustomMethods
-                                                                    .width(
+                                                                    .height(
                                                                         context,
-                                                                        15)),
+                                                                        33)),
                                                       ),
                                                     ],
                                                   ),

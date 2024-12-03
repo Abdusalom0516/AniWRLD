@@ -67,7 +67,7 @@ class MyAlertDialog {
                 Container(
                   width: CustomMethods.width(context, 3.7),
                   decoration: BoxDecoration(
-                      color: Colors.black26,
+                      color: ColorsClass.dark.withOpacity(0.4),
                       borderRadius: BorderRadius.circular(
                           CustomMethods.width(context, 45))),
                   child: TextButton(

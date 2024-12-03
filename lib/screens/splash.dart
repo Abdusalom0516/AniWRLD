@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
-import 'package:anime_world/providers/popular.dart';
+import 'package:anime_world/providers/random.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/providers/top_rated.dart';
 import 'package:flutter/material.dart';
@@ -15,18 +15,20 @@ class SplashScreen extends StatelessWidget {
 
   Future<void> _initializeData(BuildContext context) async {
     Future.wait([
-      Provider.of<RecommendationImg>(context, listen: false)
-          .getRecommendedAnimes(),
-      Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
-      Provider.of<Popular>(context, listen: false).getPopularAnimes()
+       Provider.of<RecommendationImg>(context, listen: false)
+        .getRecommendedAnimes(),
+     Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
+     Provider.of<Popular>(context, listen: false).getPopularAnimes()
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    _initializeData(context).then((_) {
-      Timer(const Duration(milliseconds: 2100), () => context.go("/"));
-    });
+    _initializeData(context).whenComplete(
+      () {
+        Timer(const Duration(milliseconds: 2100), () => context.go("/"));
+      },
+    );
     return Scaffold(
         backgroundColor: ColorsClass.dark,
         body: SizedBox(

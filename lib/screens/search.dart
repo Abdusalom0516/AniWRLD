@@ -1,8 +1,8 @@
 import 'package:anime_world/config/colors.dart';
-import 'package:anime_world/config/img_paths.dart';
 import 'package:anime_world/customs/alert_dialog.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/characters.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/internet_checker.dart';
 import 'package:anime_world/providers/navigation_index.dart';
@@ -200,6 +200,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   listen: false)
                                               .getSearchResultsByTitle(
                                                   _searchController.text);
+                                          
                                           _searchController.clear();
                                           FocusScope.of(context).unfocus();
                                         },
@@ -328,6 +329,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                                                     index]
                                                                 .id!,
                                                             context);
+                                                     Provider.of<CharactersProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getAllCharacters( provider
+                                                                .searchResultsList[
+                                                                    index]
+                                                                .id!);
                                                     Provider.of<NavigationIndex>(
                                                             context,
                                                             listen: false)

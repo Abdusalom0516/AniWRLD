@@ -16,7 +16,7 @@ class SplashScreen extends StatelessWidget {
   Future<void> _initializeData(BuildContext context) async {
     Future.wait([
       Provider.of<RecommendationImg>(context, listen: false)
-        .getRecommendedAnimes(),
+          .getRecommendedAnimes(),
       Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
       Provider.of<Popular>(context, listen: false).getPopularAnimes()
     ]);
@@ -35,8 +35,8 @@ class SplashScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image(
-                image: const AssetImage("assets/images/berserk.png"),
-                height: CustomMethods.width(context, 1.5),
+                image: const AssetImage("assets/images/aniWrld.png"),
+                height: CustomMethods.width(context, 1.35),
               ),
               CustomWidgets.height(context, 9)
             ],

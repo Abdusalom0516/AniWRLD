@@ -6,10 +6,12 @@ import 'package:anime_world/providers/internet_checker.dart';
 import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/screens/no_connection.dart';
+import 'package:anime_world/services/url_launcher.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({
@@ -370,12 +372,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         children: [
                                           // Trailer Part
                                           Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: CustomMethods.width(
-                                                      context, 70),
-                                                  horizontal:
-                                                      CustomMethods.width(
-                                                          context, 13)),
+                                              alignment: Alignment.center,
+                                              height: CustomMethods.height(
+                                                  context, 17),
+                                              width: CustomMethods.width(
+                                                  context, 2.5),
                                               decoration: BoxDecoration(
                                                 color: ColorsClass.darkRed,
                                                 border: Border.all(
@@ -385,8 +386,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                       .withOpacity(0.8),
                                                 ),
                                               ),
-                                              child: GestureDetector(
-                                                onTap: () {},
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  UrlLauncher.urlLaunch(provider
+                                                      .animeDetails["trailer"]);
+                                                },
                                                 child: Text(
                                                   "Trailer",
                                                   overflow:
@@ -396,8 +400,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                           .withOpacity(0.9),
                                                       fontFamily: "PatuaOne",
                                                       fontSize:
-                                                          CustomMethods.width(
-                                                              context, 19)),
+                                                          CustomMethods.height(
+                                                              context, 41)),
                                                 ),
                                               )),
                                         ],

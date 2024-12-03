@@ -38,7 +38,7 @@ class DetailsData extends ChangeNotifier {
         animeDetails["title"] = data["title_english"] ?? "unknown";
         animeDetails["score"] = data["score"] ?? "--";
         animeDetails["year"] = data["year"] ?? "----";
-        animeDetails["trailer"] = data["trailer"]["url"];
+        animeDetails["trailer"] = data["trailer"]["url"] ?? "https://youtu.be/f8JrZ7Q_p-8?si=_gRDjMYr2WzHw4PJ";
         animeDetails["description"] = data["synopsis"] ?? "unknown";
         animeDetails["thumbnail"] = data["images"]["jpg"]["large_image_url"] ?? "https://i.pinimg.com/736x/2c/3c/bc/2c3cbc0bb22b93579ebdd3fd69d00229.jpg";
         animeDetails["image"] = data["trailer"]["images"]["medium_image_url"] ?? "https://i.pinimg.com/736x/a2/cc/98/a2cc981a10723285a724a47d45443388.jpg";

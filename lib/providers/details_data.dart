@@ -43,14 +43,11 @@ class DetailsData extends ChangeNotifier {
         animeDetails["thumbnail"] = data["images"]["jpg"]["large_image_url"] ?? "https://i.pinimg.com/736x/2c/3c/bc/2c3cbc0bb22b93579ebdd3fd69d00229.jpg";
         animeDetails["image"] = data["trailer"]["images"]["medium_image_url"] ?? "https://i.pinimg.com/736x/a2/cc/98/a2cc981a10723285a724a47d45443388.jpg";
         animeDetails["genres"] = _takeGenres(data["genres"]);
-        // ignore: use_build_context_synchronously
         
       } catch (e) {
         LogService().e(e.toString());
       }
       notifyListeners();
-      // LogService().e(recomendationsData.length.toString());
-      // LogService().d(data.toString());
     } else {
       LogService().e("Had a problem while getting Response from the Server");
     }

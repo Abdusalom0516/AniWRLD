@@ -13,16 +13,7 @@ import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
-  // Future<void> _initializeData(BuildContext context) async {
-  //   await Future.wait([
-  //      Provider.of<RecommendationImg>(context, listen: false)
-  //       .getRecommendedAnimes(),
-  //    Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
-  //    Provider.of<Popular>(context, listen: false).getPopularAnimes()
-  //   ]);
-  // }
-
+  
   @override
   Widget build(BuildContext context) {
     

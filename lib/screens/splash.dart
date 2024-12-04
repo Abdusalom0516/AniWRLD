@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_methods.dart';
 import 'package:anime_world/customs/custom_widgets.dart';
+import 'package:anime_world/providers/internet_checker.dart';
 import 'package:anime_world/providers/random.dart';
 import 'package:anime_world/providers/recommendation_img.dart';
 import 'package:anime_world/providers/top_rated.dart';
@@ -13,22 +14,29 @@ import 'package:provider/provider.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  Future<void> _initializeData(BuildContext context) async {
-    Future.wait([
-       Provider.of<RecommendationImg>(context, listen: false)
-        .getRecommendedAnimes(),
-     Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
-     Provider.of<Popular>(context, listen: false).getPopularAnimes()
-    ]);
-  }
+  // Future<void> _initializeData(BuildContext context) async {
+  //   await Future.wait([
+  //      Provider.of<RecommendationImg>(context, listen: false)
+  //       .getRecommendedAnimes(),
+  //    Provider.of<TopRated>(context, listen: false).getTopRatedAnimes(),
+  //    Provider.of<Popular>(context, listen: false).getPopularAnimes()
+  //   ]);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _initializeData(context).whenComplete(
-      () {
-        Timer(const Duration(milliseconds: 2100), () => context.go("/"));
-      },
-    );
+    
+     // Access your providers
+    final recommendationImg = Provider.of<RecommendationImg>(context, listen: false);
+    final topRated = Provider.of<TopRated>(context, listen: false);
+    final popular = Provider.of<Popular>(context, listen: false);
+
+    // Start listening for the internet connection
+    context.read<InternetChecker>().internetConnectionListener(
+    context, recommendationImg, topRated, popular);
+
+    Timer(const Duration(milliseconds: 2300), () => context.go("/"));
+
     return Scaffold(
         backgroundColor: ColorsClass.dark,
         body: SizedBox(

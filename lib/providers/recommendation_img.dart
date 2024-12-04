@@ -33,7 +33,7 @@ class RecommendationImg extends ChangeNotifier {
     timer?.cancel();
     timer = Timer.periodic(
       const Duration(milliseconds: 4500),
-      (timer) => increment(),
+      (timer) => recomendationsData.isNotEmpty ? increment() : null,
     );
   }
 
@@ -94,7 +94,6 @@ class RecommendationImg extends ChangeNotifier {
               elem["trailer"]["images"]["maximum_image_url"],
               elem["title_english"],
               elem["score"]));
-          notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());

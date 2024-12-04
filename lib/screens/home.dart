@@ -51,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<InternetChecker>(context).internetConnectionListener();
     return Consumer2<NavigationIndex, InternetChecker>(
       builder: (context, providerOuter, connectionProviderCheck, child) =>
           !connectionProviderCheck.isConnected

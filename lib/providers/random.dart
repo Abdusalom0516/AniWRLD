@@ -11,13 +11,14 @@ class Popular extends ChangeNotifier {
   List<AnimeInfoShort> popularAnimes = [];
 
   Future<void> getPopularAnimes() async {
+    popularAnimes.clear();
     Random random = Random();
     int randomNum =
         random.nextInt(int.parse(DateTime.now().year.toString()[3]) + 1);
     int randomMonth = random.nextInt(4);
     List<String> months = ["winter", "spring", "summer", "fall"];
-    final response = await get(
-        Uri.parse("https://api.jikan.moe/v4/seasons/202$randomNum/${months[randomMonth]}"));
+    final response = await get(Uri.parse(
+        "https://api.jikan.moe/v4/seasons/202$randomNum/${months[randomMonth]}"));
 
     final data = [];
     if (response.statusCode == 200) {
@@ -29,7 +30,7 @@ class Popular extends ChangeNotifier {
               elem["images"]["jpg"]["large_image_url"],
               elem["title_english"],
               elem["score"]));
-           notifyListeners();
+          notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());

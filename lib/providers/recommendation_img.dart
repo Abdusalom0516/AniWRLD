@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/custom_methods.dart';
@@ -32,7 +33,7 @@ class RecommendationImg extends ChangeNotifier {
     timer?.cancel();
     timer = Timer.periodic(
       const Duration(milliseconds: 4500),
-      (timer) => increment(),
+      (timer) => recomendationsData.isNotEmpty ? increment() : null,
     );
   }
 
@@ -73,8 +74,15 @@ class RecommendationImg extends ChangeNotifier {
   }
 
   Future<void> getRecommendedAnimes() async {
-    final response =
-        await get(Uri.parse("https://api.jikan.moe/v4/seasons/2022/fall"));
+    recomendationsData.clear();
+    Random random = Random();
+    int randomNum =
+        random.nextInt(int.parse(DateTime.now().year.toString()[3]) + 1);
+    int randomMonth = random.nextInt(4);
+    List<String> months = ["winter", "spring", "summer", "fall"];
+
+    final response = await get(Uri.parse(
+        "https://api.jikan.moe/v4/seasons/202$randomNum/${months[randomMonth]}"));
 
     final data = [];
     if (response.statusCode == 200) {
@@ -86,7 +94,6 @@ class RecommendationImg extends ChangeNotifier {
               elem["trailer"]["images"]["maximum_image_url"],
               elem["title_english"],
               elem["score"]));
-           notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());

@@ -10,6 +10,7 @@ class TopRated extends ChangeNotifier {
   List<AnimeInfoShort> topRatedAnimes = [];
 
   Future<void> getTopRatedAnimes() async {
+    topRatedAnimes.clear();
     final response = await get(Uri.parse("https://api.jikan.moe/v4/top/anime"));
 
     final data = [];
@@ -22,7 +23,7 @@ class TopRated extends ChangeNotifier {
               elem["images"]["jpg"]["large_image_url"],
               elem["title_english"],
               elem["score"]));
-              notifyListeners();
+          notifyListeners();
         }
       } catch (e) {
         LogService().e(e.toString());

@@ -461,7 +461,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           39)), // Adjust the padding values as needed
                                   sliver: SliverToBoxAdapter(
                                     child: SizedBox(
-                                      height: CustomMethods.width(context, 8.3),
+                                      height: CustomMethods.width(context, 9),
                                       child: ScrollConfiguration(
                                         behavior: NoGlowScrollBehavior(),
                                         child: ListView.builder(
@@ -471,7 +471,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           itemBuilder: (context, index) =>
                                               Container(
                                             width: CustomMethods.width(
-                                                context, 3.5),
+                                                context, 3.7),
                                             margin: index !=
                                                     provider
                                                             .animeDetails[
@@ -510,7 +510,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     .withOpacity(0.9),
                                                 fontFamily: "PatuaOne",
                                                 fontSize: CustomMethods.width(
-                                                    context, 25),
+                                                    context, 31),
                                               ),
                                             ),
                                           ),

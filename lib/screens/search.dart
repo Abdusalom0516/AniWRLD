@@ -9,6 +9,7 @@ import 'package:anime_world/providers/navigation_index.dart';
 import 'package:anime_world/providers/search_results.dart';
 import 'package:anime_world/screens/no_connection.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -318,178 +319,123 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   SliverChildBuilderDelegate(
                                                       (context, index) {
                                                 return GestureDetector(
-                                                  onTap: () {
-                                                    // Trying to get the Detailed data
-                                                    Provider.of<DetailsData>(
-                                                            context,
-                                                            listen: false)
-                                                        .getDetailedInfo(
-                                                            provider
-                                                                .searchResultsList[
-                                                                    index]
-                                                                .id!,
-                                                            context);
-                                                     Provider.of<CharactersProvider>(
-                                                    context,
-                                                    listen: false)
-                                                .getAllCharacters( provider
-                                                                .searchResultsList[
-                                                                    index]
-                                                                .id!);
-                                                    Provider.of<NavigationIndex>(
-                                                            context,
-                                                            listen: false)
-                                                        .changeIndex(
-                                                            context, 1);
-                                                  },
-                                                  child: Container(
-                                                    width: CustomMethods.width(
-                                                        context, 2.7),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        color: ColorsClass.milk,
-                                                        width:
-                                                            CustomMethods.width(
-                                                                context, 600),
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                        CustomMethods.width(
-                                                            context, 20),
-                                                      ),
-                                                      image: DecorationImage(
-                                                        image: NetworkImage(provider
-                                                                .searchResultsList[
-                                                                    index]
-                                                                .img ??
-                                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s"),
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                    child: Stack(
-                                                      children: [
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                              CustomMethods
-                                                                  .width(
-                                                                      context,
-                                                                      20),
-                                                            ),
-                                                            gradient:
-                                                                LinearGradient(
-                                                                    colors: [
-                                                                  Colors.black
-                                                                      .withOpacity(
-                                                                          0.4),
-                                                                  Colors.black
-                                                                      .withOpacity(
-                                                                          0.4),
-                                                                ]),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          child: Container(
-                                                            padding: EdgeInsets
-                                                                .all(CustomMethods
-                                                                    .width(
-                                                                        context,
-                                                                        40)),
-                                                            alignment: Alignment
-                                                                .center,
-                                                            width:
-                                                                double.infinity,
-                                                            height:
-                                                                CustomMethods
-                                                                    .width(
-                                                                        context,
-                                                                        8.7),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: ColorsClass
-                                                                  .dark
-                                                                  .withOpacity(
-                                                                      0.8),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                  CustomMethods
-                                                                      .width(
-                                                                          context,
-                                                                          20),
-                                                                ),
-                                                                bottomRight:
-                                                                    Radius
-                                                                        .circular(
-                                                                  CustomMethods
-                                                                      .width(
-                                                                          context,
-                                                                          20),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    provider.searchResultsList[index]
-                                                                            .title ??
-                                                                        "Unknown",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                      color: ColorsClass
-                                                                          .milk
-                                                                          .withOpacity(
-                                                                              0.7),
-                                                                      fontFamily:
-                                                                          "PatuaOne",
-                                                                      fontSize: CustomMethods.width(
-                                                                          context,
-                                                                          27),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                CustomWidgets
-                                                                    .width(
-                                                                        context,
-                                                                        40),
-                                                                Text(
-                                                                  "⭐ ${provider.searchResultsList[index].score ?? "5"}",
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: ColorsClass
-                                                                        .milk
-                                                                        .withOpacity(
-                                                                            0.7),
-                                                                    fontFamily:
-                                                                        "PatuaOne",
-                                                                    fontSize: CustomMethods
-                                                                        .width(
-                                                                            context,
-                                                                            27),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
+  onTap: () {
+    // Trigger detailed data retrieval
+    Provider.of<DetailsData>(context, listen: false).getDetailedInfo(
+      provider.searchResultsList[index].id!,
+      context,
+    );
+    Provider.of<CharactersProvider>(context, listen: false).getAllCharacters(
+      provider.searchResultsList[index].id!,
+    );
+    Provider.of<NavigationIndex>(context, listen: false).changeIndex(
+      context,
+      1,
+    );
+  },
+  child: Container(
+    width: CustomMethods.width(context, 2.7),
+    decoration: BoxDecoration(
+      border: Border.all(
+        color: ColorsClass.milk,
+        width: CustomMethods.width(context, 600),
+      ),
+      borderRadius: BorderRadius.circular(
+        CustomMethods.width(context, 20),
+      ),
+    ),
+    child: Stack(
+      children: [
+        CachedNetworkImage(
+          imageUrl: provider.searchResultsList[index].img ??
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmVq-OmHL5H_5P8b1k306pFddOe3049-il2A&s",
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                CustomMethods.width(context, 20),
+              ),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => Center(
+            child: CircularProgressIndicator(
+              color: ColorsClass.milk,
+            ),
+          ),
+          errorWidget: (context, url, error) => Icon(
+            Icons.image_not_supported_outlined,
+            color: ColorsClass.lightBlue,
+            size: CustomMethods.width(context, 7),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+              CustomMethods.width(context, 20),
+            ),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.4),
+                Colors.black.withOpacity(0.4),
+              ],
+            ),
+          ),
+        ),
+        Container(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            padding: EdgeInsets.all(
+              CustomMethods.width(context, 40),
+            ),
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: CustomMethods.width(context, 8.7),
+            decoration: BoxDecoration(
+              color: ColorsClass.dark.withOpacity(0.8),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(
+                  CustomMethods.width(context, 20),
+                ),
+                bottomRight: Radius.circular(
+                  CustomMethods.width(context, 20),
+                ),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    provider.searchResultsList[index].title ?? "Unknown",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: ColorsClass.milk.withOpacity(0.7),
+                      fontFamily: "PatuaOne",
+                      fontSize: CustomMethods.width(context, 27),
+                    ),
+                  ),
+                ),
+                CustomWidgets.width(context, 40),
+                Text(
+                  "⭐ ${provider.searchResultsList[index].score ?? "5"}",
+                  style: TextStyle(
+                    color: ColorsClass.milk.withOpacity(0.7),
+                    fontFamily: "PatuaOne",
+                    fontSize: CustomMethods.width(context, 27),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
                                               },
                                                       childCount: provider
                                                           .searchResultsList

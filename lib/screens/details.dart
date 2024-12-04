@@ -1,6 +1,5 @@
 import 'package:anime_world/config/colors.dart';
 import 'package:anime_world/customs/alert_dialog.dart';
-import 'package:anime_world/customs/custom_widgets.dart';
 import 'package:anime_world/providers/characters.dart';
 import 'package:anime_world/providers/details_data.dart';
 import 'package:anime_world/providers/internet_checker.dart';
@@ -554,11 +553,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
 
                                 // Characters List Part
-                                SliverPadding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          CustomMethods.width(context, 39)),
-                                  sliver: SliverToBoxAdapter(
+                                SliverToBoxAdapter(
                                     child: Consumer<CharactersProvider>(
                                       builder: (context, providerCharacters,
                                               child) =>
@@ -571,15 +566,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               .listOfCharacters.length,
                                           itemBuilder: (context, index) =>
                                               Container(
-                                            margin: index !=
-                                                    providerCharacters
-                                                            .listOfCharacters
-                                                            .length -
-                                                        1
-                                                ? EdgeInsets.only(
-                                                    right: CustomMethods.width(
-                                                        context, 17))
-                                                : EdgeInsets.zero,
+                                            margin: index == 0
+                                          ? EdgeInsets.only(
+                                              left: CustomMethods.width(
+                                                  context, 39),
+                                                  right: CustomMethods.width(
+                                                  context, 37),
+                                            )
+                                          : EdgeInsets.only(
+                                            left: CustomMethods.width(
+                                                  context, 29),
+                                              right: CustomMethods.width(
+                                                  context, 39),
+                                            ),
                                             width: CustomMethods.width(
                                                 context, 2.95),
                                             decoration: BoxDecoration(
@@ -692,7 +691,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                
 
                                 // Space after characters
                                 SliverToBoxAdapter(

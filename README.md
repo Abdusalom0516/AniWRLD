@@ -5,6 +5,7 @@ Anime Database. An Application to review Animes. In this application, users can 
 ## Review Application
 
 <div style="display: flex; gap: 10px;">
+<img src="assets/images/review/img0.jpg" alt="Alt text" width="250" style="display: inline-block;" />
   <img src="assets/images/review/img1.jpg" alt="Alt text" width="250" style="display: inline-block;" />
   <img src="assets/images/review/img2.jpg" alt="Alt text" width="250" style="display: inline-block;" />
    <img src="assets/images/review/img3.jpg" alt="Alt text" width="250" style="display: inline-block;" />

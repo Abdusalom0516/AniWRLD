@@ -1,16 +1,14 @@
-# anime_world
+# Ani WRLD
 
-A new Flutter project.
+Anime Database. An Application to review Animes. In this application, users can search and review the animes, they can find about the trending animes and they also can find the seasonal, new animes that they might enjoy.  
 
-## Getting Started
+## Review Application
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div style="display: flex; gap: 10px;">
+  <img src="assets/images/review/img1.jpg" alt="Alt text" width="250" style="display: inline-block;" />
+  <img src="assets/images/review/img2.jpg" alt="Alt text" width="250" style="display: inline-block;" />
+   <img src="assets/images/review/img3.jpg" alt="Alt text" width="250" style="display: inline-block;" />
+    <img src="assets/images/review/img4.jpg" alt="Alt text" width="250" style="display: inline-block;" />
+     <img src="assets/images/review/img6.jpg" alt="Alt text" width="250" style="display: inline-block;" />
+      <img src="assets/images/review/img5.jpg" alt="Alt text" width="250" style="display: inline-block;" />
+</div>

@@ -13,20 +13,24 @@ import 'package:provider/provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    
-     // Access your providers
-    final recommendationImg = Provider.of<RecommendationImg>(context, listen: false);
+    // Access your providers
+    final recommendationImg =
+        Provider.of<RecommendationImg>(context, listen: false);
     final topRated = Provider.of<TopRated>(context, listen: false);
     final popular = Provider.of<Popular>(context, listen: false);
+    // Tween tween = Tween(
+    //     begin: CustomMethods.height(context, 11),
+    //     end: CustomMethods.height(context, 3.23));
+    Tween tween = Tween(begin: 0.0, end: 1.1);
 
     // Start listening for the internet connection
     context.read<InternetChecker>().internetConnectionListener(
-    context, recommendationImg, topRated, popular);
+        context, recommendationImg, topRated, popular);
 
-    Timer(const Duration(milliseconds: 2300), () => context.go("/"));
+    Timer(const Duration(milliseconds: 2500), () => context.go("/"));
 
     return Scaffold(
         backgroundColor: ColorsClass.dark,
@@ -35,9 +39,31 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(
-                image: const AssetImage("assets/images/aniWrld.png"),
-                height: CustomMethods.width(context, 1.35),
+              // TweenAnimationBuilder(
+              //   builder: (context, value, child) => Container(
+              //     margin: EdgeInsets.only(bottom: value as double),
+              //     child: child,
+              //   ),
+              //   tween: tween,
+              //   duration: const Duration(milliseconds: 1900),
+              //   curve: Curves.easeIn,
+              //   child: Image(
+              //     image: const AssetImage("assets/images/aniWrld.png"),
+              //     height: CustomMethods.width(context, 1.35),
+              //   ),
+              // ),
+              TweenAnimationBuilder(
+                builder: (context, value, child) => Transform.scale(
+                  scale: value as double,
+                  child: child,
+                ),
+                tween: tween,
+                duration: const Duration(milliseconds: 1500),
+                curve: Curves.easeInToLinear,
+                child: Image(
+                  image: const AssetImage("assets/images/aniWrld.png"),
+                  height: CustomMethods.width(context, 1.35),
+                ),
               ),
               CustomWidgets.height(context, 9)
             ],

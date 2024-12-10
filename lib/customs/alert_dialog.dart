@@ -11,7 +11,7 @@ class MyAlertDialog {
       context: context,
       barrierColor: Colors.black.withOpacity(0.73),
       builder: (context) {
-        return AlertDialog(
+        return AlertDialog.adaptive(
           titlePadding: EdgeInsets.only(
             top: CustomMethods.width(context, 25),
             bottom: CustomMethods.width(context, 275.5),
@@ -28,9 +28,11 @@ class MyAlertDialog {
                 size: CustomMethods.width(context, 11),
               ),
               CustomWidgets.height(context, 105),
-              const Text(
+              Text(
                 'Exit Confirmation',
-                style: TextStyle(fontFamily: "PatuaOne"),
+                style: TextStyle(
+                    fontFamily: "PatuaOne",
+                    fontSize: CustomMethods.height(context, 27)),
               ),
             ],
           ),
@@ -49,6 +51,7 @@ class MyAlertDialog {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
+                  height: CustomMethods.height(context, 15),
                   width: CustomMethods.width(context, 3.7),
                   decoration: BoxDecoration(
                       color: ColorsClass.lightBlue,
@@ -65,6 +68,7 @@ class MyAlertDialog {
                 ),
                 CustomWidgets.width(context, 25),
                 Container(
+                  height: CustomMethods.height(context, 15),
                   width: CustomMethods.width(context, 3.7),
                   decoration: BoxDecoration(
                       color: ColorsClass.dark.withOpacity(0.4),

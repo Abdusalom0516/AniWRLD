@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.anime_world"
+    namespace = "com.abdusalom.anime_world"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -26,8 +26,8 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        versionCode = 3
+        versionName = '1.0.4'
     }
 
     buildTypes {

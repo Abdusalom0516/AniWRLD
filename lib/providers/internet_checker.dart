@@ -35,8 +35,22 @@ class InternetChecker extends ChangeNotifier {
 
   Future<void> _initializeData(RecommendationImg recommendationImg,
       TopRated topRated, Popular popular) async {
-    await recommendationImg.getRecommendedAnimes();
-    await topRated.getTopRatedAnimes();
-    await popular.getPopularAnimes();
+    Future.wait([
+      recommendationImg.getRecommendedAnimes(),
+      topRated.getTopRatedAnimes(),
+      popular.getPopularAnimes(),
+    ]);
+
+    while (recommendationImg.recomendationsData.isEmpty) {
+      await recommendationImg.getRecommendedAnimes();
+    }
+
+    while (topRated.topRatedAnimes.isEmpty) {
+      await topRated.getTopRatedAnimes();
+    }
+
+    while (popular.popularAnimes.isEmpty) {
+      await popular.getPopularAnimes();
+    }
   }
 }

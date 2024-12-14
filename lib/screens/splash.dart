@@ -16,17 +16,15 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Access your providers
+    
     final recommendationImg =
         Provider.of<RecommendationImg>(context, listen: false);
     final topRated = Provider.of<TopRated>(context, listen: false);
     final popular = Provider.of<Popular>(context, listen: false);
-    // Tween tween = Tween(
-    //     begin: CustomMethods.height(context, 11),
-    //     end: CustomMethods.height(context, 3.23));
+    
     Tween tween = Tween(begin: 0.0, end: 1.1);
 
-    // Start listening for the internet connection
+    
     context.read<InternetChecker>().internetConnectionListener(
         context, recommendationImg, topRated, popular);
 

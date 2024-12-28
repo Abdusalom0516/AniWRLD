@@ -10,6 +10,7 @@ import 'package:anime_world/services/url_launcher.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -95,246 +96,194 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           color: ColorsClass.milk,
                           strokeAlign: CustomMethods.width(context, 111),
                         ))
-                      : Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: ColorsClass.milk,
-                                      width:
-                                          CustomMethods.width(context, 550)))),
-                          child: ScrollConfiguration(
-                            behavior: NoGlowScrollBehavior(),
-                            child: CustomScrollView(
-                              slivers: [
-                                // Top Part
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: CustomMethods.height(context, 3.3),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              provider.animeDetails["image"]),
-                                          fit: BoxFit.cover,
+                      : Stack(
+                          children: [
+                            Lottie.asset(
+                              'assets/animations/snow.json',
+                              repeat: true,
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height,
+                              fit: BoxFit.cover,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                          color: ColorsClass.milk,
+                                          width: CustomMethods.width(
+                                              context, 550)))),
+                              child: ScrollConfiguration(
+                                behavior: NoGlowScrollBehavior(),
+                                child: CustomScrollView(
+                                  slivers: [
+                                    // Top Part
+                                    SliverToBoxAdapter(
+                                      child: SizedBox(
+                                        height:
+                                            CustomMethods.height(context, 3.3),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(provider
+                                                  .animeDetails["image"]),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border(
+                                                    bottom: BorderSide(
+                                                      color: ColorsClass.milk,
+                                                      width:
+                                                          CustomMethods.width(
+                                                              context, 200),
+                                                    ),
+                                                  ),
+                                                  gradient: LinearGradient(
+                                                    begin: Alignment.bottomLeft,
+                                                    colors: [
+                                                      ColorsClass.dark
+                                                          .withOpacity(0.6),
+                                                      ColorsClass.dark
+                                                          .withOpacity(0.5),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              // Poster Part
+                                              Container(
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                margin: EdgeInsets.only(
+                                                  right: CustomMethods.width(
+                                                      context, 27),
+                                                ),
+                                                child: Transform.translate(
+                                                  offset: Offset(
+                                                    0,
+                                                    CustomMethods.width(
+                                                        context, 3.9),
+                                                  ),
+                                                  child: Container(
+                                                    height: CustomMethods.width(
+                                                        context, 2.2),
+                                                    width: CustomMethods.width(
+                                                        context, 3.2),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                        color: ColorsClass.milk,
+                                                        width:
+                                                            CustomMethods.width(
+                                                                context, 210),
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        CustomMethods.width(
+                                                            context, 27),
+                                                      ),
+                                                      image: DecorationImage(
+                                                        image: NetworkImage(
+                                                          provider.animeDetails[
+                                                              "thumbnail"],
+                                                        ),
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                          CustomMethods.width(
+                                                              context, 27),
+                                                        ),
+                                                        gradient:
+                                                            LinearGradient(
+                                                          colors: [
+                                                            ColorsClass.dark
+                                                                .withOpacity(
+                                                                    0.3),
+                                                            ColorsClass.dark
+                                                                .withOpacity(
+                                                                    0.25),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              border: Border(
-                                                bottom: BorderSide(
-                                                  color: ColorsClass.milk,
-                                                  width: CustomMethods.width(
-                                                      context, 200),
-                                                ),
-                                              ),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.bottomLeft,
-                                                colors: [
-                                                  ColorsClass.dark
-                                                      .withOpacity(0.6),
-                                                  ColorsClass.dark
-                                                      .withOpacity(0.5),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          // Poster Part
-                                          Container(
-                                            alignment: Alignment.bottomRight,
-                                            margin: EdgeInsets.only(
-                                              right: CustomMethods.width(
-                                                  context, 27),
-                                            ),
-                                            child: Transform.translate(
-                                              offset: Offset(
-                                                0,
-                                                CustomMethods.width(
-                                                    context, 3.9),
-                                              ),
-                                              child: Container(
-                                                height: CustomMethods.width(
-                                                    context, 2.2),
-                                                width: CustomMethods.width(
-                                                    context, 3.2),
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: ColorsClass.milk,
-                                                    width: CustomMethods.width(
-                                                        context, 210),
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                    CustomMethods.width(
-                                                        context, 27),
-                                                  ),
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                      provider.animeDetails[
-                                                          "thumbnail"],
-                                                    ),
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      CustomMethods.width(
-                                                          context, 27),
-                                                    ),
-                                                    gradient: LinearGradient(
-                                                      colors: [
-                                                        ColorsClass.dark
-                                                            .withOpacity(0.3),
-                                                        ColorsClass.dark
-                                                            .withOpacity(0.25),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                     ),
-                                  ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      right: CustomMethods.width(context, 27),
-                                      left: CustomMethods.width(context, 50),
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                    SliverToBoxAdapter(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                          right:
+                                              CustomMethods.width(context, 27),
+                                          left:
+                                              CustomMethods.width(context, 50),
+                                        ),
+                                        child: Column(
                                           children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  // Title Part
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      top: CustomMethods.width(
-                                                          context, 31),
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                            right: CustomMethods
-                                                                .width(context,
-                                                                    70),
-                                                          ),
-                                                          child: Icon(
-                                                            Icons.circle,
-                                                            color: ColorsClass
-                                                                .yellow,
-                                                            size: CustomMethods
-                                                                .width(context,
-                                                                    35),
-                                                          ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      // Title Part
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          top: CustomMethods
+                                                              .width(
+                                                                  context, 31),
                                                         ),
-                                                        Flexible(
-                                                          child: Text(
-                                                            provider
-                                                                .animeDetails[
-                                                                    "title"]
-                                                                .toString()
-                                                                .replaceAll(
-                                                                    "/", " "),
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              color: ColorsClass
-                                                                  .milk
-                                                                  .withOpacity(
-                                                                      0.9),
-                                                              fontFamily:
-                                                                  "PatuaOne",
-                                                              fontSize:
-                                                                  CustomMethods
-                                                                      .width(
-                                                                          context,
-                                                                          17),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                          CustomMethods.width(
-                                                              context, 30)),
-                                                  // Year and Score Part
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      right:
-                                                          CustomMethods.width(
-                                                              context, 31),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        // Score Part
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            vertical:
-                                                                CustomMethods
+                                                        child: Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .only(
+                                                                right: CustomMethods
                                                                     .width(
                                                                         context,
-                                                                        110),
-                                                            horizontal:
-                                                                CustomMethods
+                                                                        70),
+                                                              ),
+                                                              child: Icon(
+                                                                Icons.circle,
+                                                                color:
+                                                                    ColorsClass
+                                                                        .yellow,
+                                                                size: CustomMethods
                                                                     .width(
                                                                         context,
-                                                                        20),
-                                                          ),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                              width: CustomMethods
-                                                                  .width(
-                                                                      context,
-                                                                      200),
-                                                              color: ColorsClass
-                                                                  .milk
-                                                                  .withOpacity(
-                                                                      0.8),
+                                                                        35),
+                                                              ),
                                                             ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                              CustomMethods
-                                                                  .width(
-                                                                      context,
-                                                                      40),
-                                                            ),
-                                                          ),
-                                                          child: Row(
-                                                            children: [
-                                                              Icon(Icons.star,
-                                                                  color: ColorsClass
-                                                                      .yellow),
-                                                              Text(
-                                                                " ${provider.animeDetails["score"] ?? "--"}",
+                                                            Flexible(
+                                                              child: Text(
+                                                                provider
+                                                                    .animeDetails[
+                                                                        "title"]
+                                                                    .toString()
+                                                                    .replaceAll(
+                                                                        "/",
+                                                                        " "),
                                                                 overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
@@ -349,359 +298,467 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                                   fontSize: CustomMethods
                                                                       .width(
                                                                           context,
-                                                                          21),
+                                                                          17),
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        // Year Part
-                                                        Text(
-                                                          "Y: ${provider.animeDetails["year"] ?? "----"}",
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            color: ColorsClass
-                                                                .milk
-                                                                .withOpacity(
-                                                                    0.8),
-                                                            fontFamily:
-                                                                "PatuaOne",
-                                                            fontSize:
-                                                                CustomMethods
-                                                                    .width(
-                                                                        context,
-                                                                        21),
-                                                          ),
+                                                      ),
+                                                      SizedBox(
+                                                          height: CustomMethods
+                                                              .width(
+                                                                  context, 30)),
+                                                      // Year and Score Part
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                          right: CustomMethods
+                                                              .width(
+                                                                  context, 31),
                                                         ),
-                                                      ],
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            // Score Part
+                                                            Container(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                vertical:
+                                                                    CustomMethods
+                                                                        .width(
+                                                                            context,
+                                                                            110),
+                                                                horizontal:
+                                                                    CustomMethods
+                                                                        .width(
+                                                                            context,
+                                                                            20),
+                                                              ),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                border:
+                                                                    Border.all(
+                                                                  width: CustomMethods
+                                                                      .width(
+                                                                          context,
+                                                                          200),
+                                                                  color: ColorsClass
+                                                                      .milk
+                                                                      .withOpacity(
+                                                                          0.8),
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                  CustomMethods
+                                                                      .width(
+                                                                          context,
+                                                                          40),
+                                                                ),
+                                                              ),
+                                                              child: Row(
+                                                                children: [
+                                                                  Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color: ColorsClass
+                                                                          .yellow),
+                                                                  Text(
+                                                                    " ${provider.animeDetails["score"] ?? "--"}",
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .ellipsis,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: ColorsClass
+                                                                          .milk
+                                                                          .withOpacity(
+                                                                              0.9),
+                                                                      fontFamily:
+                                                                          "PatuaOne",
+                                                                      fontSize: CustomMethods.width(
+                                                                          context,
+                                                                          21),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            // Year Part
+                                                            Text(
+                                                              "Y: ${provider.animeDetails["year"] ?? "----"}",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                color: ColorsClass
+                                                                    .milk
+                                                                    .withOpacity(
+                                                                        0.8),
+                                                                fontFamily:
+                                                                    "PatuaOne",
+                                                                fontSize:
+                                                                    CustomMethods
+                                                                        .width(
+                                                                            context,
+                                                                            21),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    width: CustomMethods.width(
+                                                        context, 23)),
+                                                // Anime Poster Part
+                                                Expanded(
+                                                    child:
+                                                        Container()), // Placeholder for future content
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SliverToBoxAdapter(
+                                      child: SizedBox(
+                                        height:
+                                            CustomMethods.width(context, 17),
+                                      ),
+                                    ),
+
+                                    // Row with Trailer Part
+                                    SliverPadding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: CustomMethods.width(
+                                              context,
+                                              39)), // Adjust the padding values as needed
+                                      sliver: SliverToBoxAdapter(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            // Trailer Button
+                                            Container(
+                                              alignment: Alignment.center,
+                                              height: CustomMethods.height(
+                                                  context, 17),
+                                              width: CustomMethods.width(
+                                                  context, 2.5),
+                                              decoration: BoxDecoration(
+                                                color: ColorsClass.darkRed,
+                                                border: Border.all(
+                                                  width: CustomMethods.width(
+                                                      context, 200),
+                                                  color: ColorsClass.milk
+                                                      .withOpacity(0.8),
+                                                ),
+                                              ),
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  UrlLauncher.urlLaunch(provider
+                                                      .animeDetails["trailer"]);
+                                                },
+                                                child: Text(
+                                                  "Trailer",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    color: ColorsClass.milk
+                                                        .withOpacity(0.9),
+                                                    fontFamily: "PatuaOne",
+                                                    fontSize:
+                                                        CustomMethods.height(
+                                                            context, 41),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    // Space after the Row
+                                    SliverToBoxAdapter(
+                                      child: SizedBox(
+                                        height:
+                                            CustomMethods.width(context, 15),
+                                      ),
+                                    ),
+
+                                    SliverPadding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: CustomMethods.width(
+                                              context,
+                                              39)), // Adjust the padding values as needed
+                                      sliver: SliverToBoxAdapter(
+                                        child: SizedBox(
+                                          height:
+                                              CustomMethods.width(context, 9),
+                                          child: ScrollConfiguration(
+                                            behavior: NoGlowScrollBehavior(),
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: provider
+                                                  .animeDetails["genres"]
+                                                  .length,
+                                              itemBuilder: (context, index) =>
+                                                  Container(
+                                                width: CustomMethods.width(
+                                                    context, 3.7),
+                                                margin: index !=
+                                                        provider
+                                                                .animeDetails[
+                                                                    "genres"]
+                                                                .length -
+                                                            1
+                                                    ? EdgeInsets.only(
+                                                        right:
+                                                            CustomMethods.width(
+                                                                context, 20),
+                                                      )
+                                                    : const EdgeInsets.all(0),
+                                                alignment: Alignment.center,
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      CustomMethods.width(
+                                                          context, 25),
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    width: CustomMethods.width(
+                                                        context, 200),
+                                                    color: ColorsClass.milk
+                                                        .withOpacity(0.8),
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    CustomMethods.width(
+                                                        context, 40),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  provider.animeDetails[
+                                                      "genres"][index],
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    color: ColorsClass.milk
+                                                        .withOpacity(0.9),
+                                                    fontFamily: "PatuaOne",
+                                                    fontSize:
+                                                        CustomMethods.width(
+                                                            context, 31),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    // Space after the Genres Part
+                                    SliverToBoxAdapter(
+                                      child: SizedBox(
+                                        height:
+                                            CustomMethods.width(context, 25),
+                                      ),
+                                    ),
+                                    // Description Part
+                                    SliverPadding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              CustomMethods.width(context, 39)),
+                                      sliver: SliverToBoxAdapter(
+                                        child: Text(
+                                          provider.animeDetails[
+                                                  "description"] ??
+                                              "",
+                                          style: TextStyle(
+                                            color: ColorsClass.milk
+                                                .withOpacity(0.8),
+                                            fontFamily: "PatuaOne",
+                                            fontSize: CustomMethods.width(
+                                                context, 23),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    SliverToBoxAdapter(
+                                      child: SizedBox(
+                                        height:
+                                            CustomMethods.width(context, 25),
+                                      ),
+                                    ),
+
+                                    // Characters List Part
+                                    SliverToBoxAdapter(
+                                      child: Consumer<CharactersProvider>(
+                                        builder: (context, providerCharacters,
+                                                child) =>
+                                            SizedBox(
+                                          height: CustomMethods.height(
+                                              context, 4.5),
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: providerCharacters
+                                                .listOfCharacters.length,
+                                            itemBuilder: (context, index) =>
+                                                Container(
+                                              margin: index == 0
+                                                  ? EdgeInsets.only(
+                                                      left: CustomMethods.width(
+                                                          context, 39),
+                                                      right:
+                                                          CustomMethods.width(
+                                                              context, 37),
+                                                    )
+                                                  : EdgeInsets.only(
+                                                      left: CustomMethods.width(
+                                                          context, 29),
+                                                      right:
+                                                          CustomMethods.width(
+                                                              context, 39),
+                                                    ),
+                                              width: CustomMethods.width(
+                                                  context, 2.95),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: ColorsClass.milk,
+                                                  width: CustomMethods.width(
+                                                      context, 600),
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        CustomMethods.width(
+                                                            context, 20)),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    providerCharacters
+                                                            .listOfCharacters[
+                                                                index]
+                                                            .img ??
+                                                        "https://i.pinimg.com/736x/f6/76/83/f67683016eb44f1fa4ef785fa0f71039.jpg",
+                                                  ),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              CustomMethods
+                                                                  .width(
+                                                                      context,
+                                                                      20)),
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Colors.black
+                                                              .withOpacity(
+                                                                  0.37),
+                                                          Colors.black
+                                                              .withOpacity(0.37)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    child: Container(
+                                                      padding: EdgeInsets.all(
+                                                          CustomMethods.width(
+                                                              context, 40)),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height:
+                                                          CustomMethods.width(
+                                                              context, 10.7),
+                                                      decoration: BoxDecoration(
+                                                        color: ColorsClass.dark
+                                                            .withOpacity(0.83),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  CustomMethods
+                                                                      .width(
+                                                                          context,
+                                                                          20)),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  CustomMethods
+                                                                      .width(
+                                                                          context,
+                                                                          20)),
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              providerCharacters
+                                                                      .listOfCharacters[
+                                                                          index]
+                                                                      .name ??
+                                                                  "...",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                color: ColorsClass
+                                                                    .milk
+                                                                    .withOpacity(
+                                                                        0.7),
+                                                                fontFamily:
+                                                                    "PatuaOne",
+                                                                fontSize:
+                                                                    CustomMethods
+                                                                        .width(
+                                                                            context,
+                                                                            31),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(
-                                                width: CustomMethods.width(
-                                                    context, 23)),
-                                            // Anime Poster Part
-                                            Expanded(
-                                                child:
-                                                    Container()), // Placeholder for future content
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: CustomMethods.width(context, 17),
-                                  ),
-                                ),
-
-                                // Row with Trailer Part
-                                SliverPadding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: CustomMethods.width(context,
-                                          39)), // Adjust the padding values as needed
-                                  sliver: SliverToBoxAdapter(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        // Trailer Button
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height:
-                                              CustomMethods.height(context, 17),
-                                          width:
-                                              CustomMethods.width(context, 2.5),
-                                          decoration: BoxDecoration(
-                                            color: ColorsClass.darkRed,
-                                            border: Border.all(
-                                              width: CustomMethods.width(
-                                                  context, 200),
-                                              color: ColorsClass.milk
-                                                  .withOpacity(0.8),
-                                            ),
-                                          ),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              UrlLauncher.urlLaunch(provider
-                                                  .animeDetails["trailer"]);
-                                            },
-                                            child: Text(
-                                              "Trailer",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.9),
-                                                fontFamily: "PatuaOne",
-                                                fontSize: CustomMethods.height(
-                                                    context, 41),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-
-                                // Space after the Row
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: CustomMethods.width(context, 15),
-                                  ),
-                                ),
-
-                                SliverPadding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: CustomMethods.width(context,
-                                          39)), // Adjust the padding values as needed
-                                  sliver: SliverToBoxAdapter(
-                                    child: SizedBox(
-                                      height: CustomMethods.width(context, 9),
-                                      child: ScrollConfiguration(
-                                        behavior: NoGlowScrollBehavior(),
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: provider
-                                              .animeDetails["genres"].length,
-                                          itemBuilder: (context, index) =>
-                                              Container(
-                                            width: CustomMethods.width(
-                                                context, 3.7),
-                                            margin: index !=
-                                                    provider
-                                                            .animeDetails[
-                                                                "genres"]
-                                                            .length -
-                                                        1
-                                                ? EdgeInsets.only(
-                                                    right: CustomMethods.width(
-                                                        context, 20),
-                                                  )
-                                                : const EdgeInsets.all(0),
-                                            alignment: Alignment.center,
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: CustomMethods.width(
-                                                  context, 25),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                width: CustomMethods.width(
-                                                    context, 200),
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.8),
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                CustomMethods.width(
-                                                    context, 40),
-                                              ),
-                                            ),
-                                            child: Text(
-                                              provider.animeDetails["genres"]
-                                                  [index],
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                color: ColorsClass.milk
-                                                    .withOpacity(0.9),
-                                                fontFamily: "PatuaOne",
-                                                fontSize: CustomMethods.width(
-                                                    context, 31),
-                                              ),
-                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
 
-                                // Space after the Genres Part
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: CustomMethods.width(context, 25),
-                                  ),
-                                ),
-                                // Description Part
-                                SliverPadding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          CustomMethods.width(context, 39)),
-                                  sliver: SliverToBoxAdapter(
-                                    child: Text(
-                                      provider.animeDetails["description"] ??
-                                          "",
-                                      style: TextStyle(
-                                        color:
-                                            ColorsClass.milk.withOpacity(0.8),
-                                        fontFamily: "PatuaOne",
-                                        fontSize:
-                                            CustomMethods.width(context, 23),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: CustomMethods.width(context, 25),
-                                  ),
-                                ),
-
-                                // Characters List Part
-                                SliverToBoxAdapter(
-                                    child: Consumer<CharactersProvider>(
-                                      builder: (context, providerCharacters,
-                                              child) =>
-                                          SizedBox(
+                                    // Space after characters
+                                    SliverToBoxAdapter(
+                                      child: SizedBox(
                                         height:
-                                            CustomMethods.height(context, 4.5),
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: providerCharacters
-                                              .listOfCharacters.length,
-                                          itemBuilder: (context, index) =>
-                                              Container(
-                                            margin: index == 0
-                                          ? EdgeInsets.only(
-                                              left: CustomMethods.width(
-                                                  context, 39),
-                                                  right: CustomMethods.width(
-                                                  context, 37),
-                                            )
-                                          : EdgeInsets.only(
-                                            left: CustomMethods.width(
-                                                  context, 29),
-                                              right: CustomMethods.width(
-                                                  context, 39),
-                                            ),
-                                            width: CustomMethods.width(
-                                                context, 2.95),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: ColorsClass.milk,
-                                                width: CustomMethods.width(
-                                                    context, 600),
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      CustomMethods.width(
-                                                          context, 20)),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  providerCharacters
-                                                          .listOfCharacters[
-                                                              index]
-                                                          .img ??
-                                                      "https://i.pinimg.com/736x/f6/76/83/f67683016eb44f1fa4ef785fa0f71039.jpg",
-                                                ),
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                            child: Stack(
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            CustomMethods.width(
-                                                                context, 20)),
-                                                    gradient: LinearGradient(
-                                                      colors: [
-                                                        Colors.black
-                                                            .withOpacity(0.37),
-                                                        Colors.black
-                                                            .withOpacity(0.37)
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  left: 0,
-                                                  right: 0,
-                                                  child: Container(
-                                                    padding: EdgeInsets.all(
-                                                        CustomMethods.width(
-                                                            context, 40)),
-                                                    alignment: Alignment.center,
-                                                    height: CustomMethods.width(
-                                                        context, 10.7),
-                                                    decoration: BoxDecoration(
-                                                      color: ColorsClass.dark
-                                                          .withOpacity(0.83),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(
-                                                                CustomMethods
-                                                                    .width(
-                                                                        context,
-                                                                        20)),
-                                                        bottomRight:
-                                                            Radius.circular(
-                                                                CustomMethods
-                                                                    .width(
-                                                                        context,
-                                                                        20)),
-                                                      ),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            providerCharacters
-                                                                    .listOfCharacters[
-                                                                        index]
-                                                                    .name ??
-                                                                "...",
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              color: ColorsClass
-                                                                  .milk
-                                                                  .withOpacity(
-                                                                      0.7),
-                                                              fontFamily:
-                                                                  "PatuaOne",
-                                                              fontSize:
-                                                                  CustomMethods
-                                                                      .width(
-                                                                          context,
-                                                                          31),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                            CustomMethods.width(context, 15),
                                       ),
                                     ),
-                                  ),
-                                
-
-                                // Space after characters
-                                SliverToBoxAdapter(
-                                  child: SizedBox(
-                                    height: CustomMethods.width(context, 15),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         )),
     );
   }

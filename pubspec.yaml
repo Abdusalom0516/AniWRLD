@@ -19,6 +19,7 @@ dependencies:
   back_button_interceptor: ^8.0.0
   internet_connection_checker_plus: ^2.5.2
   url_launcher: ^6.3.1
+  lottie: ^3.3.0
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +35,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/animations/
 
   fonts:
     - family: Spicy-Rice
